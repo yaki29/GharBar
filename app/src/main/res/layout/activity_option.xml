@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    >
+
+
+
+
+    <android.support.v7.widget.CardView
+
+        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
+        android:id="@+id/view2"
+        android:layout_width="200dp"
+        android:clickable="true"
+        android:onClick="SignUpHome"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="16dp"
+        android:innerRadius="0dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:shape="ring"
+
+        android:thicknessRatio="1.9"
+        app:cardElevation="16dp"
+        app:cardCornerRadius="99dp">
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_edit_location_black_24dp"
+            />
+
+
+
+        <TextView
+            android:id="@+id/homeservices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/search"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="casual"
+            android:text="Search"
+            android:textColor="#616161"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+
+        android:layout_centerInParent="true"
+        android:layout_below="@id/view2"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:onClick="SignUpBarber"
+        android:id="@+id/view1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="16dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:layout_marginTop="10dp"
+        android:background="#424242"
+        android:thicknessRatio="1.9"
+        app:cardElevation="16dp"
+        app:cardCornerRadius="99dp">
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/building"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_location_city_black_24dp"
+            />
+
+        <TextView
+            android:id="@+id/barbershop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="casual"
+            android:text="To-Let"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/building"
+            android:textColor="#616161"
+            android:textSize="20sp"
+            android:textStyle="bold" /></RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+
+</LinearLayout>
