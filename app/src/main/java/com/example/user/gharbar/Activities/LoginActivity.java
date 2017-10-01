@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +17,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.gharbar.Models.User;
 import com.example.user.gharbar.R;
+import com.example.user.gharbar.Utilities.UserModel;
+
+import java.net.URISyntaxException;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -26,6 +31,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String passs,conp;
     TextView nota;
     boolean check;
+
+
+    public static final String SETTINGS_CLOUDANT_USER = "33460cc3-8818-44e0-81f4-0021d7711652-bluemix";
+    public static final String SETTINGS_CLOUDANT_DB = "user-tenant";
+    public static final String SETTINGS_CLOUDANT_API_KEY = "wornindlyzenturnotognelo";
+    public static final String SETTINGS_CLOUDANT_API_SECRET = "ab109a75705a0e942d478e261aae4f2bb79af6bb";
+
+
+
+    // Main data model object
+    private static UserModel sTasks;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +59,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         nota.setOnClickListener(this);
 
 
+        // Protect creation of static variable.
+        if (sTasks == null) {
+            // Model needs to stay in existence for lifetime of app.
+            this.sTasks = new UserModel(this.getApplicationContext());
+        }
+
+
+
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.loginbtn){
+            Email=email.getText().toString();
+            Pass=password.getText().toString();
 
             if(Email!=null && Pass!=null){
                 Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
@@ -65,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void showAlertDialog()
     {
         final EditText name,email,pass,conpass;
-         String Name,Ema;
+         final String Name,Ema;
 
 
 
@@ -144,11 +171,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         builder.setTitle("Sign Up");
+
         builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int whichButton) {
+
         if(name.getText().toString()!=null && email.getText().toString()!=null && pass.getText().toString()!=null && conpass.getText().toString()!=null && check==true){
 
+
+
             Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+            createNewUser(name.getText().toString(),email.getText().toString(),pass.getText().toString(),category);
 
 
         }
@@ -182,6 +214,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
         }
     }
+    private void createNewUser(String name,String email,String password,String Category) {
+        User t = new User(name,email,password,Category);
+        sTasks.createDocument(t);
+        reloadReplicationSettings();
+
+
+
+    }
+
+
+    private void reloadReplicationSettings() {
+        try {
+            this.sTasks.reloadReplicationSettings();
+        } catch (URISyntaxException e) {
+            Log.e("LOGINAC", "Unable to construct remote URI from configuration", e);
+            Toast.makeText(getApplicationContext(),
+                    R.string.replication_error,
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 }
 
 

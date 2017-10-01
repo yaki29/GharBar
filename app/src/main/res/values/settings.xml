@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_user">"33460cc3-8818-44e0-81f4-0021d7711652-bluemix"</string>
+    <string name="default_dbname">"user-tenant"</string>
+    <string name="default_api_key">"wornindlyzenturnotognelo"</string>
+    <string name="default_api_password">"ab109a75705a0e942d478e261aae4f2bb79af6bb"</string>
+
+</resources>
