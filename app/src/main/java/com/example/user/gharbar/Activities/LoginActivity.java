@@ -17,11 +17,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cloudant.sync.documentstore.DocumentStoreException;
 import com.example.user.gharbar.Models.User;
 import com.example.user.gharbar.R;
 import com.example.user.gharbar.Utilities.UserModel;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // Main data model object
     private static UserModel sTasks;
+    List<User> allusers;
 
 
     @Override
@@ -76,7 +79,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Pass=password.getText().toString();
 
             if(Email!=null && Pass!=null){
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+
+                reloadReplicationSettings(1);
+                try {
+                    allusers=sTasks.allTasks();
+
+                    for(int i=0;i<allusers.size();i++){
+                        if(allusers.get(i).getEmail().equals(Email) && allusers.get(i).getPassword().equals(Pass)){
+                            Toast.makeText(this, "Login successfull", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (DocumentStoreException e) {
+                    e.printStackTrace();
+                }
 
             }
             else if(Email==null && Pass==null){
@@ -217,16 +232,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void createNewUser(String name,String email,String password,String Category) {
         User t = new User(name,email,password,Category);
         sTasks.createDocument(t);
-        reloadReplicationSettings();
+        reloadReplicationSettings(0);
 
 
 
     }
 
 
-    private void reloadReplicationSettings() {
+    private void reloadReplicationSettings(int flag) {
         try {
-            this.sTasks.reloadReplicationSettings();
+            this.sTasks.reloadReplicationSettings(flag);
         } catch (URISyntaxException e) {
             Log.e("LOGINAC", "Unable to construct remote URI from configuration", e);
             Toast.makeText(getApplicationContext(),

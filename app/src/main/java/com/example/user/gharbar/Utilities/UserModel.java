@@ -17,6 +17,8 @@ import com.example.user.gharbar.Models.User;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 1/10/17.
@@ -31,6 +33,7 @@ public class UserModel {
     private DocumentStore mDocumentStore;
 
     private Replicator mPushReplicator;
+    private Replicator mPullReplicator;
     private final Context mContext;
    // private final Handler mHandler;
     private LoginActivity mListener;
@@ -95,7 +98,7 @@ public class UserModel {
         return new URI("https", apiKey + ":" + apiSecret, host, 443, "/" + dbName, null, null);
     }
 
-    public void reloadReplicationSettings()
+    public void reloadReplicationSettings(int flag)
             throws URISyntaxException {
 
         // Stop running replications before reloading the replication
@@ -112,10 +115,15 @@ public class UserModel {
         URI uri = this.createServerURI();
 
 
+        mPullReplicator = ReplicatorBuilder.pull().to(mDocumentStore).from(uri).build();
         mPushReplicator = ReplicatorBuilder.push().from(mDocumentStore).to(uri).build();
 
         mPushReplicator.getEventBus().register(this);
+        mPullReplicator.getEventBus().register(this);
+        if(flag==0)
         startPushReplication();
+        else if (flag==1)
+            startPullReplication();
 
         Log.d("UserModel", "Set up replicators for URI:" + uri.toString());
     }
@@ -124,5 +132,32 @@ public class UserModel {
         if (this.mPushReplicator != null) {
             this.mPushReplicator.stop();
         }
+        if (this.mPullReplicator != null) {
+            this.mPullReplicator.stop();
+        }
     }
+    public List<User> allTasks() throws DocumentStoreException {
+        int nDocs = this.mDocumentStore.database().getDocumentCount();
+        List<DocumentRevision> all = this.mDocumentStore.database().read(0, nDocs, true);
+        List<User> tasks = new ArrayList<User>();
+
+        // Filter all documents down to those of type Task.
+        for(DocumentRevision rev : all) {
+            User t = User.fromRevision(rev);
+            if (t != null) {
+                tasks.add(t);
+            }
+        }
+
+        return tasks;
+    }
+
+    public void startPullReplication() {
+        if (this.mPullReplicator != null) {
+            this.mPullReplicator.start();
+        } else {
+            throw new RuntimeException("Push replication not set up correctly");
+        }
+    }
+
 }
