@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GharBar</string>
+    <string name="signup">Not a User? <u>Sign Up</u></string>
+
+        <string-array name="Users">
+            <item>Tenant</item>
+            <item>Proprietor</item>
+
+        </string-array>
+
 </resources>
