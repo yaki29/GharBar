@@ -1,6 +1,9 @@
 package com.example.user.gharbar.Activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -87,6 +90,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     for(int i=0;i<allusers.size();i++){
                         if(allusers.get(i).getEmail().equals(Email) && allusers.get(i).getPassword().equals(Pass)){
                             Toast.makeText(this, "Login successfull", Toast.LENGTH_SHORT).show();
+                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("email", allusers.get(i).getEmail());
+                            editor.putString("id",allusers.get(i).getId());
+                            editor.putString("category",allusers.get(i).getCategory());
+
+
+                            editor.commit();
+
+                            if(allusers.get(i).getCategory().equals("Tenant")){
+                                Intent intent = new Intent(getApplicationContext(), ProprietorActivity.class);
+
+                                startActivity(intent);
+
+                            }
+                            else{
+                                Intent intent = new Intent(getApplicationContext(), ProprietorActivity.class);
+
+                                startActivity(intent);
+                            }
                         }
                     }
                 } catch (DocumentStoreException e) {

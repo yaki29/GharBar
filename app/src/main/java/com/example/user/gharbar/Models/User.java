@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class User {
     String name;
+    String id;
     String email;
     String password;
     String addressline1;
@@ -98,6 +99,14 @@ public class User {
         this.addressline1 = addressline1;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getAddressline2() {
         return addressline2;
     }
@@ -138,6 +147,7 @@ public class User {
         if(map.containsKey("type") && map.get("type").equals(User.DOC_TYPE)) {
             t.setType((String) map.get("type"));
             t.setName((String) map.get("name"));
+            t.setId((String) map.get("id"));
             t.setEmail((String) map.get("email"));
             t.setPassword((String) map.get("password"));
             t.setCategory((String)map.get("category"));
@@ -154,6 +164,7 @@ public class User {
         map.put("email", email);
         map.put("password",password);
         map.put("category",category);
+        map.put("id",id);
         return map;
     }
 

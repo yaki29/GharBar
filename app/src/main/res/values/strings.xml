@@ -2,11 +2,11 @@
     <string name="app_name">GharBar</string>
     <string name="signup">Not a User? <u>Sign Up</u></string>
 
-        <string-array name="Users">
-            <item>Tenant</item>
-            <item>Proprietor</item>
+    <string-array name="Users">
+        <item>Tenant</item>
+        <item>Proprietor</item>
 
-        </string-array>
+    </string-array>
     <string name="activity_settings_title">Settings</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
@@ -30,6 +30,32 @@
     <string name="pref_title_username">Cloudant user name</string>
     <string name="pref_summary_dbname">You cloudant db name, and this is the db used in replication.</string>
     <string name="pref_title_dbname">Cloudant db name</string>
+
+
+    <!--items in navigation drawer of user -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="edit_profile">Profile</string>
+    <string name="add_service">Add Services</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="about_us">About Us</string>
+    <string name="log_out">Logout</string>
+    <string name="add_barber">Add Barbers</string>
+    <string name="contact_us">Contact Us</string>
+
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="proprietor_titles">
+        <item>Add Place</item>
+
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
