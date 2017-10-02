@@ -17,6 +17,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="300dp"
         android:id="@+id/cardview1"
+        app:cardElevation="32dp"
         android:layout_centerInParent="true"
         android:layout_height="300dp">
         <RelativeLayout
@@ -43,7 +44,7 @@
                 android:background="@drawable/edittextrounded"
                 android:layout_height="50dp"
                 android:padding="3dp"
-                android:inputType="textPassword"
+                android:inputType="textWebPassword"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:hint=" Password"
