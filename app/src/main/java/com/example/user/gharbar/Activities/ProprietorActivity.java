@@ -89,9 +89,7 @@ public class ProprietorActivity extends AppCompatActivity {
 
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.proprietor_titles);
-        shared=getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
-        name=shared.getString("email","");
-        category=shared.getString("servicetype","");
+
         // uid=shared.getString("uid","");
 
 

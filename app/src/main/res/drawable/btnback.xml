@@ -9,7 +9,7 @@
                 android:width="1dp"
                 android:color="#FEB61E" />
             <corners
-                android:radius="65dp"
+                android:radius="8dp"
                 />
 
             <padding
@@ -29,7 +29,7 @@
                 android:width="1dp"
                 android:color="#80FEB61E" />
             <corners
-                android:radius="20dp"
+                android:radius="8dp"
                 />
 
             <padding

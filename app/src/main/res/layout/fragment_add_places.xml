@@ -15,7 +15,7 @@
         <EditText
             android:layout_width="330dp"
             android:layout_height="40dp"
-
+            android:id="@+id/placename"
             android:hint="Name"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
@@ -28,6 +28,7 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
+            android:id="@+id/placeaddressline1"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
@@ -40,24 +41,12 @@
             android:drawableLeft="@drawable/domain"
             android:background="@drawable/edittextplain"
             />
-        <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
-            android:drawablePadding="10dp"
 
-            android:hint="Address Line 2"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"
-            android:drawableLeft="@drawable/domain"
-            android:paddingLeft="10dp"
-            android:background="@drawable/edittextplain"
-            />
         <EditText
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:hint="City"
+            android:id="@+id/placecity"
             android:drawablePadding="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -68,6 +57,7 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
+            android:id="@+id/placestate"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
@@ -81,6 +71,7 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
+            android:id="@+id/placebhk"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
@@ -94,6 +85,7 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
+            android:id="@+id/placeprice"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
@@ -109,28 +101,30 @@
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/amenities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        <LinearLayout
+        android:fontFamily="sans-serif-condensed"
+        android:paddingLeft="20dp"
+        android:text="Amenities:"
+
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_marginLeft="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
 
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="20dp"
-                android:text="Amenities:"
-
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
 
             <CheckBox
+                android:id="@+id/swimmingpool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
@@ -140,79 +134,84 @@
                 android:textColor="#FFFFFF"
                 android:textSize="15sp" />
             <CheckBox
+                android:id="@+id/garden"
+                android:layout_toRightOf="@id/swimmingpool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+
                 android:buttonTint="#FFFFFF"
                 android:textSize="15sp"
-                android:paddingBottom="10dp"
+                android:padding="10dp"
                 android:text="Garden"
                 android:textColor="#FFFFFF"/>
 
             <CheckBox
+                android:id="@+id/gym"
+                android:layout_toRightOf="@id/garden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
+                android:padding="10dp"
                 android:textSize="15sp"
                 android:buttonTint="#FFFFFF"
                 android:text="Gym"
                 android:textColor="#FFFFFF"/>
             <CheckBox
+                android:id="@+id/lift"
+                android:layout_below="@id/swimmingpool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="10dp"
                 android:textSize="15sp"
                 android:buttonTint="#FFFFFF"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
+
+                android:padding="10dp"
                 android:text="Lift"
                 android:textColor="#FFFFFF"/>
             <CheckBox
+                android:id="@+id/cafeteria"
+                android:layout_toRightOf="@id/lift"
+                android:layout_below="@id/garden"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="10dp"
+                android:padding="10dp"
                 android:buttonTint="#FFFFFF"
                 android:textSize="15sp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
+
                 android:text="Cafeteria"
                 android:textColor="#FFFFFF"/>
 
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
 
                 android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="20dp"
                 android:text="Type:"
-
+                android:id="@+id/type"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <RadioGroup
+                android:layout_below="@+id/type"
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
 
                 android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content">
 
                 <CheckBox
+                    android:id="@+id/apartment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
@@ -222,6 +221,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="15sp" />
                 <CheckBox
+                    android:id="@+id/house"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
@@ -229,7 +229,7 @@
                     android:buttonTint="#FFFFFF"
                     android:paddingRight="10dp"
                     android:textSize="15sp"
-                    android:paddingBottom="10dp"
+                    android:padding="10dp"
                     android:text="House"
                     android:textColor="#FFFFFF"/>
 
@@ -237,7 +237,8 @@
 
             </RadioGroup>
 
-            <Button
+           <!-- <Button
+                android:id="@+id/btnpic"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -245,11 +246,12 @@
                 android:text="Upload Photo" />
 
             <Button
+                android:id="@+id/btndoc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Upload ownership Document" />
-        </LinearLayout>
+                android:text="Upload ownership Document" />-->
+        </RelativeLayout>
 
 
 
@@ -258,12 +260,14 @@
     </LinearLayout>
 
         <Button
+            android:id="@+id/btnsubmit"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/btnback"
             android:fontFamily="sans-serif-condensed"
             android:layout_margin="10dp"
+            android:onClick="Submit"
             android:text="Submit" />
 
     </LinearLayout>

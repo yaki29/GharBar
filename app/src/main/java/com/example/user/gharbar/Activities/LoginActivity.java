@@ -95,12 +95,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putString("email", allusers.get(i).getEmail());
                             editor.putString("id",allusers.get(i).getId());
                             editor.putString("category",allusers.get(i).getCategory());
+                            Toast.makeText(this, allusers.get(i).getCategory()+allusers.get(i).getId(), Toast.LENGTH_SHORT).show();
 
 
                             editor.commit();
 
                             if(allusers.get(i).getCategory().equals("Tenant")){
-                                Intent intent = new Intent(getApplicationContext(), ProprietorActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), TenantActivity.class);
 
                                 startActivity(intent);
 

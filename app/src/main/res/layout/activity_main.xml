@@ -1,18 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    tools:context="com.example.user.gharbar.MainActivity">
-
-    <TextView
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerInParent="true"
+        android:src="@drawable/gharbar"/>
+    <!--  <r21nomi.com.glrippleview.GLRippleView
+          android:id="@+id/rippleView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:backgroundImage="@drawable/logo"
+          />    -->
 
-</android.support.constraint.ConstraintLayout>
+    <!--  <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="8dp"
+          android:layout_marginLeft="3dp"
+          android:layout_marginRight="3dp">
+
+
+          <Button
+              android:id="@+id/signin"
+              android:layout_width="196dp"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_margin="3dp"
+              android:layout_weight="1"
+              android:background="@drawable/bg_button"
+              android:fontFamily="sans-serif"
+              android:text="Sign In"
+
+              android:textAllCaps="false"
+              android:textColor="#FFFFFF"/>
+          <Button
+              android:id="@+id/signup"
+              android:layout_width="196dp"
+              android:layout_height="wrap_content"
+
+              android:layout_alignParentBottom="true"
+              android:layout_margin="3dp"
+              android:layout_toRightOf="@id/signin"
+              android:layout_weight="1"
+              android:background="@drawable/bg_button"
+              android:backgroundTintMode="src_atop"
+              android:fontFamily="sans-serif"
+              android:text="Sign Up"
+              android:textAllCaps="false"
+
+
+              android:textColor="#FFFFFF"/>
+      </LinearLayout>  -->
+</RelativeLayout>
