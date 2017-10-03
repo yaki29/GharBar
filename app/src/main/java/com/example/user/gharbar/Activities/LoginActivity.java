@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login=(Button)findViewById(R.id.loginbtn);
         email=(EditText)findViewById(R.id.email);
+
         password=(EditText)findViewById(R.id.password);
         nota=(TextView)findViewById(R.id.textsignup);
         Email=email.getText().toString();

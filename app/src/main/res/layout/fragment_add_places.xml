@@ -6,18 +6,19 @@
 <ScrollView
     android:background="@drawable/landscape"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
         <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
-
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:imeOptions="flagNoExtractUi"
             android:hint="Name"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -27,25 +28,14 @@
             android:drawableLeft="@drawable/ic_place_black_24dp"
             android:background="@drawable/edittextplain"
             />
-        <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
-            android:drawablePadding="10dp"
-            android:hint="Address Line 1"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:paddingLeft="10dp"
-            android:layout_gravity="center_horizontal"
-            android:drawableLeft="@drawable/domain"
-            android:background="@drawable/edittextplain"
-            />
-        <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
-            android:drawablePadding="10dp"
 
-            android:hint="Address Line 2"
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:drawablePadding="10dp"
+            android:id="@+id/add2"
+            android:imeOptions="flagNoExtractUi"
+            android:hint="Address"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
@@ -55,9 +45,10 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:hint="City"
+            android:imeOptions="flagNoExtractUi"
             android:drawablePadding="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -68,9 +59,10 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:drawablePadding="10dp"
+            android:imeOptions="flagNoExtractUi"
             android:hint="State"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -81,10 +73,11 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:drawablePadding="10dp"
             android:hint="BHK"
+            android:imeOptions="flagNoExtractUi"
             android:paddingLeft="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -94,9 +87,10 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:layout_width="330dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
             android:drawablePadding="10dp"
+            android:imeOptions="flagNoExtractUi"
             android:hint="Starting Price"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -107,14 +101,15 @@
             android:background="@drawable/edittextplain"
             />
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_weight="5"
             android:layout_marginLeft="10dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -190,8 +185,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -238,7 +234,7 @@
             </RadioGroup>
 
             <Button
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-condensed"

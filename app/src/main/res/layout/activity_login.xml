@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_height="match_parent"
+    android:layout_width="match_parent">
+<RelativeLayout
+
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.gharbar.Activities.LoginActivity">
     <ImageView
-        android:layout_width="500dp"
-        android:layout_height="200dp"
+        android:id="@+id/image_logo"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:src="@drawable/gharbar"
-        android:layout_above="@+id/cardview1" />
+         />
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:id="@+id/cardview1"
+        android:layout_marginLeft="72dp"
+        android:layout_below="@id/image_logo"
+        app:cardElevation="32dp"
+        android:fitsSystemWindows="true"
         android:layout_centerInParent="true"
-        android:layout_height="300dp">
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="wrap_content"
+            android:paddingBottom="32dp"
             android:layout_height="wrap_content">
 
             <EditText
@@ -30,7 +39,9 @@
                 android:padding="3dp"
                 android:inputType="textEmailAddress"
                 android:layout_height="50dp"
+                android:imeOptions="flagNoExtractUi"
                 android:layout_marginRight="10dp"
+                android:focusableInTouchMode="true"
                 android:background="@drawable/edittextrounded"
                 android:layout_marginLeft="10dp"
                 android:hint="  Email"
@@ -39,11 +50,13 @@
                 android:id="@+id/password"
                 android:layout_below="@id/email"
                 android:layout_width="match_parent"
+                android:focusableInTouchMode="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edittextrounded"
                 android:layout_height="50dp"
+                android:imeOptions="flagNoExtractUi"
                 android:padding="3dp"
-                android:inputType="textPassword"
+                android:inputType="textWebPassword"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:hint=" Password"
@@ -71,10 +84,11 @@
         android:id="@+id/textsignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cardview1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="33dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/signup"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_below="@+id/cardview1"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
+</ScrollView>
