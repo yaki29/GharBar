@@ -52,7 +52,7 @@ public class Place {
         this.validation=false;
     }
 
-    public boolean isValidation() {
+    public boolean getValidation() {
         return validation;
     }
 
