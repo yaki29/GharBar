@@ -13,10 +13,12 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:imeOptions="flagNoExtractUi"
             android:layout_width="330dp"
             android:layout_height="40dp"
-            android:id="@+id/placename"
+            android:id="@+id/placeName"
             android:hint="Name"
+            android:inputType="textPersonName"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
@@ -28,11 +30,13 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:id="@+id/placeaddressline1"
+            android:imeOptions="flagNoExtractUi"
+            android:id="@+id/addLine1"
             android:layout_width="330dp"
             android:layout_height="40dp"
+            android:inputType="text"
             android:drawablePadding="10dp"
-            android:hint="Address Line 1"
+            android:hint="Address"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
@@ -42,11 +46,14 @@
             android:background="@drawable/edittextplain"
             />
 
+
         <EditText
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:hint="City"
-            android:id="@+id/placecity"
+            android:inputType="textPersonName"
+            android:id="@+id/city"
+            android:imeOptions="flagNoExtractUi"
             android:drawablePadding="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -57,25 +64,29 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:id="@+id/placestate"
+            android:id="@+id/state"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
             android:hint="State"
+            android:inputType="textPersonName"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal"
             android:drawableLeft="@drawable/domain"
             android:paddingLeft="10dp"
+            android:imeOptions="flagNoExtractUi"
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:id="@+id/placebhk"
+            android:id="@+id/bhk"
+            android:inputType="number"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
             android:hint="BHK"
+            android:imeOptions="flagNoExtractUi"
             android:paddingLeft="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -85,7 +96,9 @@
             android:background="@drawable/edittextplain"
             />
         <EditText
-            android:id="@+id/placeprice"
+            android:imeOptions="flagNoExtractUi"
+            android:id="@+id/startingprice"
+            android:inputType="number"
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:drawablePadding="10dp"
@@ -260,7 +273,7 @@
     </LinearLayout>
 
         <Button
-            android:id="@+id/btnsubmit"
+            android:id="@+id/submitbutton"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
