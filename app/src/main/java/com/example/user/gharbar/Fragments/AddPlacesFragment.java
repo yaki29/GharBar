@@ -45,7 +45,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         Log.v("hello","OnCreate");
         super.onCreate(savedInstanceState);
-
+        setRetainInstance(true);
         if(!haveNetworkConnection()){
             Toast.makeText(getContext(), "Please connect to Internet", Toast.LENGTH_SHORT).show();
         }
