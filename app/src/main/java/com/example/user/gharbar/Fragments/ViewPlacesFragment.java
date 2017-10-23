@@ -49,7 +49,7 @@ public class ViewPlacesFragment extends Fragment {
 
         try {
             place= (ArrayList<Place>) stask.allTasks();
-            Log.d("dhvkjsdv",place.get(0).getCity());
+
         } catch (DocumentStoreException e) {
             e.printStackTrace();
         }

@@ -45,7 +45,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         Log.v("hello","OnCreate");
         super.onCreate(savedInstanceState);
-
+        setRetainInstance(true);
         if(!haveNetworkConnection()){
             Toast.makeText(getContext(), "Please connect to Internet", Toast.LENGTH_SHORT).show();
         }
@@ -61,6 +61,10 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
         submit = (Button)Rootview.findViewById(R.id.submitbutton);
         placeName = (EditText)Rootview.findViewById(R.id.placeName);
         addLine1 = (EditText)Rootview.findViewById(R.id.addLine1);
+
+
+
+        addLine1.setOnTouchListener(mtouchListener);
 
         city = (EditText)Rootview.findViewById(R.id.city);
         state = (EditText)Rootview.findViewById(R.id.state);
@@ -95,7 +99,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         if(view.getId() == R.id.submitbutton){
 
-            if(placeName.getText().toString()!=null && addLine1.getText().toString()!=null && addLine2.getText().toString()!=null && city.getText().toString()!=null && state.getText().toString()!=null && bhk.getText().toString()!=null && startingprice.getText().toString()!=null){
+            if(placeName.getText().toString()!=null && addLine1.getText().toString()!=null && absurd!=null && city.getText().toString()!=null && state.getText().toString()!=null && bhk.getText().toString()!=null && startingprice.getText().toString()!=null){
                 if(lift.isChecked())liftvalue =true;
                 if(garden.isChecked())gardenvalue =true;
                 if(gym.isChecked())gymvalue =true;
@@ -113,7 +117,6 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
                     bhk.setText("");
                     startingprice.setText("");
                     addLine1.setText("");
-                    addLine2.setText("");
                     city.setText("");
                     state.setText("");
                     lift.setChecked(false);
@@ -135,8 +138,8 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void createNewPlace(String placeName, String addLine1, String addLine2,String city,String state,String bhk,String startingPrice,String proprieterID,boolean lift,boolean garden,boolean swimmingpool,boolean gym,boolean cafeteria,boolean house,boolean apartment){
-        Place t = new Place(placeName,addLine1,addLine2,city,state,bhk,startingPrice,proprieterID,lift,garden,swimmingpool,gym,cafeteria,house,apartment);
+    private void createNewPlace(String placeName, String addLine1, String addLine,String city,String state,String bhk,String startingPrice,String proprieterID,boolean lift,boolean garden,boolean swimmingpool,boolean gym,boolean cafeteria,boolean house,boolean apartment){
+        Place t = new Place(placeName,addLine1,addLine,city,state,bhk,startingPrice,proprieterID,lift,garden,swimmingpool,gym,cafeteria,house,apartment);
         sTasks.createDocument(t);
         reloadReplicationSettings(0);
 
