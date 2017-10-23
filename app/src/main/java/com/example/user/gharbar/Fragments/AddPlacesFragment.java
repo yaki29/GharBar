@@ -28,7 +28,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
     Button submit,uploadphoto,uploaddocuments;
     EditText placeName,addLine1,addLine2,city,state,bhk,startingprice;
     CheckBox lift,gym,garden,swimmingpool,cafeteria,apartment,house;
-    String proprieterID;
+    String proprieterID,absurd;
     boolean liftvalue=false ,gymvalue=false ,gardenvalue=false ,swimmingpoolvalue=false ,cafeteriavalue=false ,apartmentvalue=false ,housevalue=false;
 
 
@@ -61,7 +61,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
         submit = (Button)Rootview.findViewById(R.id.submitbutton);
         placeName = (EditText)Rootview.findViewById(R.id.placeName);
         addLine1 = (EditText)Rootview.findViewById(R.id.addLine1);
-        addLine2 = (EditText)Rootview.findViewById(R.id.addLine2);
+
         city = (EditText)Rootview.findViewById(R.id.city);
         state = (EditText)Rootview.findViewById(R.id.state);
         bhk = (EditText)Rootview.findViewById(R.id.bhk);
@@ -108,7 +108,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
                 }
                 else{
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
-                createNewPlace(placeName.getText().toString(),addLine1.getText().toString(),addLine2.getText().toString(),city.getText().toString(),state.getText().toString(),bhk.getText().toString(),startingprice.getText().toString(),proprieterID,liftvalue,gardenvalue,swimmingpoolvalue,gymvalue,cafeteriavalue,housevalue,apartmentvalue);
+                createNewPlace(placeName.getText().toString(),addLine1.getText().toString(),absurd,city.getText().toString(),state.getText().toString(),bhk.getText().toString(),startingprice.getText().toString(),proprieterID,liftvalue,gardenvalue,swimmingpoolvalue,gymvalue,cafeteriavalue,housevalue,apartmentvalue);
                 placeName.setText("");
                     bhk.setText("");
                     startingprice.setText("");
@@ -188,18 +188,21 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.addline1);
+        final EditText edt1 = (EditText) dialogView.findViewById(R.id.addline2);
 
         dialogBuilder.setTitle("Custom dialog");
         dialogBuilder.setMessage("Enter text below");
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with
-                //addEdit.setText(edt.getText().toString());
+                Log.v("KO","KO");
+                absurd = edt1.getText().toString();
+                addLine1.setText(edt.getText().toString());
+
             }
         });
 
         AlertDialog b = dialogBuilder.create();
-        b.show();
-    }
+        b.show();    }
 
 }
