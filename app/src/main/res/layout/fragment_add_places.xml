@@ -219,7 +219,7 @@
                 android:layout_below="@+id/type"
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
-
+                android:id="@+id/rd"
                 android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content">
 
@@ -250,9 +250,10 @@
 
             </RadioGroup>
 
-           <!-- <Button
+           <Button
                 android:id="@+id/btnpic"
-                android:layout_width="200dp"
+                android:layout_width="170dp"
+               android:layout_below="@id/rd"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-condensed"
@@ -260,10 +261,12 @@
 
             <Button
                 android:id="@+id/btndoc"
+                android:layout_toRightOf="@id/btnpic"
                 android:layout_width="wrap_content"
+                android:layout_below="@id/rd"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Upload ownership Document" />-->
+                android:text="Upload ownership Document" />
         </RelativeLayout>
 
 
