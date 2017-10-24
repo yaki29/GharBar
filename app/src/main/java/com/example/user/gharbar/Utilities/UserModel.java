@@ -160,4 +160,7 @@ public class UserModel {
         }
     }
 
+    public void setReplicationListener(LoginActivity loginActivity) {
+        this.mListener = loginActivity;
+    }
 }

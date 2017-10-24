@@ -1,6 +1,8 @@
 package com.example.user.gharbar.Utilities;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.cloudant.sync.documentstore.DocumentBodyFactory;
@@ -12,6 +14,7 @@ import com.cloudant.sync.documentstore.DocumentStoreNotOpenedException;
 import com.cloudant.sync.replication.Replicator;
 import com.cloudant.sync.replication.ReplicatorBuilder;
 import com.example.user.gharbar.Fragments.AddPlacesFragment;
+import com.example.user.gharbar.Fragments.ViewPlacesFragment;
 import com.example.user.gharbar.Models.Place;
 
 import java.io.File;
@@ -26,17 +29,17 @@ import java.util.List;
 
 public class PlaceModel {
 
-
+    private static final String LOG_TAG = "TasksModel";
     private static final String DOCUMENT_STORE_DIR = "data";
     private static final String DOCUMENT_STORE_NAME = "placestasks";
 
     private DocumentStore mDocumentStore;
-
+    private final Handler mHandler;
     private Replicator mPushReplicator;
     private Replicator mPullReplicator;
     private final Context mContext;
     // private final Handler mHandler;
-    private AddPlacesFragment mListener;
+    private ViewPlacesFragment mListener;
 
     public PlaceModel(Context context) {
 
@@ -57,6 +60,17 @@ public class PlaceModel {
 
         Log.d("PlaceModel", "Set up database at " + path.getAbsolutePath());
 
+        try {
+            this.reloadReplicationSettings();
+        } catch (URISyntaxException e) {
+            Log.e(LOG_TAG, "Unable to construct remote URI from configuration", e);
+        }
+
+        // Allow us to switch code called by the ReplicationListener into
+        // the main thread so the UI can update safely.
+        this.mHandler = new Handler(Looper.getMainLooper());
+
+        Log.d(LOG_TAG, "TasksModel set up " + path.getAbsolutePath());
 
 
 
@@ -98,7 +112,7 @@ public class PlaceModel {
         return new URI("https", apiKey + ":" + apiSecret, host, 443, "/" + dbName, null, null);
     }
 
-    public void reloadReplicationSettings(int flag)
+    public void reloadReplicationSettings()
             throws URISyntaxException {
 
         // Stop running replications before reloading the replication
@@ -114,18 +128,13 @@ public class PlaceModel {
         // Set up the new replicator objects
         URI uri = this.createServerURI();
 
-
         mPullReplicator = ReplicatorBuilder.pull().to(mDocumentStore).from(uri).build();
         mPushReplicator = ReplicatorBuilder.push().from(mDocumentStore).to(uri).build();
 
         mPushReplicator.getEventBus().register(this);
         mPullReplicator.getEventBus().register(this);
-        if(flag==0)
-            startPushReplication();
-        else if (flag==1)
-            startPullReplication();
 
-        Log.d("PlaceModel", "Set up replicators for URI:" + uri.toString());
+        Log.d(LOG_TAG, "Set up replicators for URI:" + uri.toString());
     }
     public void stopAllReplications() {
 
@@ -159,5 +168,11 @@ public class PlaceModel {
             throw new RuntimeException("Push replication not set up correctly");
         }
     }
+
+    public void setReplicationListener(ViewPlacesFragment listener) {
+        this.mListener = listener;
+    }
+
+
 
 }

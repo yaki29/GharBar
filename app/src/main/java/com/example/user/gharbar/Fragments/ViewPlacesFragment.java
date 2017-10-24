@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,12 +21,17 @@ import com.example.user.gharbar.Models.Place;
 import com.example.user.gharbar.R;
 import com.example.user.gharbar.Utilities.PlaceModel;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ViewPlacesFragment extends Fragment {
+public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerView;
+    View view;
+    private int a=0;
     private AlbumsAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<Place> place;
     PlaceModel stask;
     @Override
@@ -40,43 +46,73 @@ public class ViewPlacesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_view_places, container, false);
         prepareAlbums();
+
+        recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+       view = v.findViewById(R.id.empty_view);
+        view.setVisibility(View.GONE);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         // Protect creation of static variable.
         if (stask == null) {
             // Model needs to stay in existence for lifetime of app.
             this.stask = new PlaceModel(getActivity());
         }
 
+        this.stask.setReplicationListener(this);
+        //stask.startPullReplication();
+        // Load the tasks from the model
+        swipeRefreshLayout.setRefreshing(true);
 
-        try {
-            place= (ArrayList<Place>) stask.allTasks();
-
-        } catch (DocumentStoreException e) {
-            e.printStackTrace();
-        }
-
-        if(place!=null){
-
-            recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-
-                       adapter = new AlbumsAdapter(getContext(), place);
-
-            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(adapter);
+       // this.reloadTasksFromModel();
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,R.color.green,R.color.red);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
 
 
-        }
-        else {
-            Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
-        }
+//        try {
+//            place= (ArrayList<Place>) stask.allTasks();
+//
+//        } catch (DocumentStoreException e) {
+//            e.printStackTrace();
+//        }
+//        stask.startPullReplication();
+
+//        if(place!=null){
+//
+//            recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+//
+//                       adapter = new AlbumsAdapter(getContext(), place);
+//
+//            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
+//            recyclerView.setLayoutManager(mLayoutManager);
+//            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+//            recyclerView.setItemAnimator(new DefaultItemAnimator());
+//            recyclerView.setAdapter(adapter);
+//
+//
+//        }
+//        else {
+//            Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+//        }
 
         return v;
 
 
     }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.v("Log","run");
+                view.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(true);
+                reloadTasksFromModel();
+
+            }
+        },5000);
+    }
+
     /**
      * RecyclerView item decoration - give equal margin around grid item
      */
@@ -131,5 +167,53 @@ public class ViewPlacesFragment extends Fragment {
 
 
         };
-    }}
+    }
+
+    private void reloadTasksFromModel() {
+        try {
+            //recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+            stask.startPullReplication();
+            ArrayList<Place> tasks = (ArrayList<Place>) this.stask.allTasks();
+            if(tasks!=null) {
+                this.adapter = new AlbumsAdapter(this.getActivity(), tasks);
+                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
+                recyclerView.setLayoutManager(mLayoutManager);
+                //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(this.adapter);
+                if(adapter.getItemCount()==0)
+                {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+
+
+            }
+            else{
+                Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+            }
+            swipeRefreshLayout.setRefreshing(false);
+        } catch (DocumentStoreException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("LOG_TAG", "onDestroy()");
+        super.onDestroy();
+        recyclerView.setAdapter(null);
+        // Clear our reference as listener.
+        this.stask.setReplicationListener(null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.stask.setReplicationListener(this);
+        //stask.startPullReplication();
+        // Load the tasks from the model
+        this.reloadTasksFromModel();
+    }
+}
 

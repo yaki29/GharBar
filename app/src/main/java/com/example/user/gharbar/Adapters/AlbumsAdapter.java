@@ -42,6 +42,13 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
 
     public AlbumsAdapter(Context mContext, ArrayList<Place> albumList) {
+        Log.v("SIZE",albumList.size()+"");
+        if (mContext == null) {
+            throw new IllegalArgumentException("Context must not be null.");
+        }
+        if (albumList == null) {
+            throw new IllegalArgumentException("List of tasks must not be null.");
+        }
         this.mContext = mContext;
         this.albumList = albumList;
     }
