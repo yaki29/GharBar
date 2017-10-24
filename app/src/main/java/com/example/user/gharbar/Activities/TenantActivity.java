@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.user.gharbar.Fragments.ViewPlacesFragment;
 import com.example.user.gharbar.R;
+import com.example.user.gharbar.Utilities.PlaceModel;
 
 public class TenantActivity extends AppCompatActivity {
 
@@ -73,7 +74,6 @@ public class TenantActivity extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view1);
-
         // Navigation view header
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
 

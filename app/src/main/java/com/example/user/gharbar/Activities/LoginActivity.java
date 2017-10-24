@@ -1,10 +1,12 @@
 package com.example.user.gharbar.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -21,8 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudant.sync.documentstore.DocumentStoreException;
+import com.example.user.gharbar.Fragments.ViewPlacesFragment;
 import com.example.user.gharbar.Models.User;
 import com.example.user.gharbar.R;
+import com.example.user.gharbar.Utilities.PlaceModel;
 import com.example.user.gharbar.Utilities.UserModel;
 
 import java.net.URISyntaxException;
@@ -30,13 +34,14 @@ import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private static UserModel sTasks;
     Button login;
     EditText email,password;
     String Email,Pass,category;
     String passs,conp;
     TextView nota;
     boolean check;
-
+    private ProgressDialog progressDialog;
 
     public static final String SETTINGS_CLOUDANT_USER = "33460cc3-8818-44e0-81f4-0021d7711652-bluemix";
     public static final String SETTINGS_CLOUDANT_DB = "user-tenant";
@@ -46,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     // Main data model object
-    private static UserModel sTasks;
+
     List<User> allusers;
 
 
@@ -54,7 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
         login=(Button)findViewById(R.id.loginbtn);
         email=(EditText)findViewById(R.id.email);
         password=(EditText)findViewById(R.id.password);
@@ -71,58 +77,114 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             this.sTasks = new UserModel(this.getApplicationContext());
         }
 
+  //   this.sTasks.setReplicationListener(this);
+     //   this.reloadTasksFromModel();
+    }
 
+    private void reloadTasksFromModel() {
 
     }
 
     @Override
     public void onClick(View v) {
+        progressDialog.show();
+        //sTasks.startPullReplication();
+        reloadReplicationSettings(1);
         if(v.getId()==R.id.loginbtn){
+
             Email=email.getText().toString();
             Pass=password.getText().toString();
 
             if(Email!=null && Pass!=null){
 
-                reloadReplicationSettings(1);
-                try {
-                    allusers=sTasks.allTasks();
 
-                    for(int i=0;i<allusers.size();i++){
-                        if(allusers.get(i).getEmail().equals(Email) && allusers.get(i).getPassword().equals(Pass)){
-                            Toast.makeText(this, "Login successfull", Toast.LENGTH_SHORT).show();
-                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("email", allusers.get(i).getEmail());
-                            editor.putString("id",allusers.get(i).getId());
-                            editor.putString("category",allusers.get(i).getCategory());
-                            Toast.makeText(this, allusers.get(i).getCategory()+allusers.get(i).getId(), Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        int a=1;
+                        progressDialog.dismiss();
 
 
-                            editor.commit();
+                        try {
+                            allusers=sTasks.allTasks();
 
-                            if(allusers.get(i).getCategory().equals("Tenant")){
-                                Intent intent = new Intent(getApplicationContext(), TenantActivity.class);
+                            for(int i=0;i<allusers.size();i++){
+                                if(allusers.get(i).getEmail().equals(Email) && allusers.get(i).getPassword().equals(Pass)){
+                                    //Toast.makeText(this, "Login successfull", Toast.LENGTH_SHORT).show();
+                                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("email", allusers.get(i).getEmail());
+                                    editor.putString("id",allusers.get(i).getId());
+                                    editor.putString("category",allusers.get(i).getCategory());
+                                   // Toast.makeText(this, allusers.get(i).getCategory()+allusers.get(i).getId(), Toast.LENGTH_SHORT).show();
 
-                                startActivity(intent);
 
+                                    editor.commit();
+
+
+                                    if(allusers.get(i).getCategory().equals("Tenant")){
+                                        a=0;
+                                        Intent intent = new Intent(getApplicationContext(), TenantActivity.class);
+
+                                        startActivity(intent);
+
+
+                                    }
+                                    else{
+                                        a=0;
+                                        Intent intent = new Intent(getApplicationContext(), ProprietorActivity.class);
+
+                                        startActivity(intent);
+                                    }
+                                }
                             }
-                            else{
-                                Intent intent = new Intent(getApplicationContext(), ProprietorActivity.class);
-
-                                startActivity(intent);
-                            }
+                            if(a==1)
+                            Toast.makeText(getApplicationContext(),"Please check entered details\n TRY AGAIN",Toast.LENGTH_SHORT).show();
+                        } catch (DocumentStoreException e) {
+                            e.printStackTrace();
                         }
                     }
-                } catch (DocumentStoreException e) {
-                    e.printStackTrace();
-                }
+                },10000);
+//                try {
+//                    allusers=sTasks.allTasks();
+//
+//                    for(int i=0;i<allusers.size();i++){
+//                        if(allusers.get(i).getEmail().equals(Email) && allusers.get(i).getPassword().equals(Pass)){
+//                            Toast.makeText(this, "Login successfull", Toast.LENGTH_SHORT).show();
+//                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = sharedPreferences.edit();
+//                            editor.putString("email", allusers.get(i).getEmail());
+//                            editor.putString("id",allusers.get(i).getId());
+//                            editor.putString("category",allusers.get(i).getCategory());
+//                            Toast.makeText(this, allusers.get(i).getCategory()+allusers.get(i).getId(), Toast.LENGTH_SHORT).show();
+//
+//
+//                            editor.commit();
+//
+//                            if(allusers.get(i).getCategory().equals("Tenant")){
+//
+//                                Intent intent = new Intent(getApplicationContext(), TenantActivity.class);
+//
+//                                startActivity(intent);
+//
+//                            }
+//                            else{
+//                                Intent intent = new Intent(getApplicationContext(), ProprietorActivity.class);
+//
+//                                startActivity(intent);
+//                            }
+//                        }
+//                    }
+//                } catch (DocumentStoreException e) {
+//                    e.printStackTrace();
+//                }
 
             }
             else if(Email==null && Pass==null){
                 Toast.makeText(this, "Please Enter All the Details", Toast.LENGTH_SHORT).show();
             }
         }
-        else if(v.getId()==R.id.textsignup){
+         if(v.getId()==R.id.textsignup){
             showAlertDialog();
 
         }
@@ -130,6 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void showAlertDialog()
     {
+        progressDialog.dismiss();
         final EditText name,email,pass,conpass;
          final String Name,Ema;
 
@@ -273,7 +336,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.LENGTH_LONG).show();
         }
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.sTasks.setReplicationListener(this);
+        //stask.startPullReplication();
+        // Load the tasks from the model
+        this.reloadTasksFromModel();
+    }
 
 }
 

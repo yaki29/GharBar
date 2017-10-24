@@ -162,16 +162,16 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
     private void createNewPlace(String placeName, String addLine1, String addLine,String city,String state,String bhk,String startingPrice,String proprieterID,boolean lift,boolean garden,boolean swimmingpool,boolean gym,boolean cafeteria,boolean house,boolean apartment){
         Place t = new Place(placeName,addLine1,addLine,city,state,bhk,startingPrice,proprieterID,lift,garden,swimmingpool,gym,cafeteria,house,apartment);
         sTasks.createDocument(t);
-        reloadReplicationSettings(0);
-
+        reloadReplicationSettings();
+        sTasks.startPushReplication();
 
 
     }
 
 
-    private void reloadReplicationSettings(int flag) {
+    private void reloadReplicationSettings() {
         try {
-            this.sTasks.reloadReplicationSettings(flag);
+            this.sTasks.reloadReplicationSettings();
         } catch (URISyntaxException e) {
             Log.e("LOGINAC", "Unable to construct remote URI from configuration", e);
             Toast.makeText(getActivity(),
@@ -214,8 +214,8 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener{
         final EditText edt = (EditText) dialogView.findViewById(R.id.addline1);
         final EditText edt1 = (EditText) dialogView.findViewById(R.id.addline2);
 
-        dialogBuilder.setTitle("Custom dialog");
-        dialogBuilder.setMessage("Enter text below");
+        dialogBuilder.setMessage("Enter Your Address\n");
+
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with

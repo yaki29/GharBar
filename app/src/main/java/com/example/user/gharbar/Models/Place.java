@@ -233,7 +233,7 @@ public class Place {
             t.setLift((Boolean)map.get("lift"));
             t.setApartment((Boolean)map.get("apartment"));
             t.setHouse((Boolean)map.get("house"));
-            t.setValidation((Boolean)map.get("validation"));
+         //   t.setValidation((Boolean)map.get("validation"));
             return t;
         }
         return null;
@@ -259,7 +259,7 @@ public class Place {
         map.put("lift",lift);
         map.put("apartment",apartment);
         map.put("house",house);
-        map.put("validation",validation);
+       // map.put("validation",validation);
         return map;
     }
 }
