@@ -35,7 +35,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
     private int a=0;
     private AlbumsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    ArrayList<Place> place;
+    ArrayList<Place> tasks;
     PlaceModel stask;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +119,18 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Log.v("Item No",""+clickedItemIndex);
+//        Log.v("PlaceModel",""+tasks.get(clickedItemIndex).getPlaceName());
+        Place place = tasks.get(clickedItemIndex);
+
         Intent intent = new Intent(getActivity().getBaseContext(),Map_Activity.class);
+        intent.putExtra("Name",place.getPlaceName());
+        intent.putExtra("Add",place.getAddLine1());
+        intent.putExtra("Price",place.getStartingPrice());
+        intent.putExtra("Gym",place.isGym());
+        intent.putExtra("Swimming Pool",place.isSwimmingpool());
+        intent.putExtra("Garden",place.isGarden());
+        intent.putExtra("Lift",place.isLift());
+        intent.putExtra("Cafeteria",place.isCafeteria());
         intent.putExtra("Lat",27.552494);
         intent.putExtra("Long",76.631267);
         getActivity().startActivity(intent);
@@ -186,7 +197,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         try {
             //recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
             stask.startPullReplication();
-            ArrayList<Place> tasks = (ArrayList<Place>) this.stask.allTasks();
+             tasks = (ArrayList<Place>) this.stask.allTasks();
             if(tasks!=null) {
                 this.adapter = new AlbumsAdapter(this.getActivity(), tasks,this);
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);

@@ -33,7 +33,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         void onListItemClick(int clickedItemIndex);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, count,verified;
         public ImageView thumbnail;
 
@@ -46,7 +46,6 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             thumbnail.setOnClickListener(this);
             view.setOnClickListener(this);
         }
-
 
         @Override
         public void onClick(View v) {
