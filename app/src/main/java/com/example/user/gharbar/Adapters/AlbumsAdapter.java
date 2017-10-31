@@ -89,7 +89,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             holder.verified.setTextColor(Color.parseColor("#FF14F404"));
         }
         holder.count.setText("Expected Rent ::"+album.getStartingPrice()+"INR");
-        Glide.with(mContext).load(R.drawable.gharbar).into(holder.thumbnail);
+
+        Glide.with(mContext).load(album.getPicUrl()).centerCrop().error(R.drawable.gharbar).placeholder(R.drawable.search).into(holder.thumbnail);
 
     }
     @Override

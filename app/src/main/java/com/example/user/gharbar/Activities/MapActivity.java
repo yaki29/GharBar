@@ -33,13 +33,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         if (googleMap != null) {
             Bundle bundle = getIntent().getExtras();
-            double lat = bundle.getDouble("Lat");
-            double lon = bundle.getDouble("Long");
-
             LatLng latLng = new LatLng(27.552494, 76.631267);
-            if(lat!=0 && lon!=0){
-                latLng = new LatLng(lat, lon);
-            }
+            if(bundle.getDouble("Long")!=0 && bundle.getDouble("Lat")!=0){
+            double lat = Double.parseDouble((String)bundle.get("Lat"));
+            double lon = Double.parseDouble((String)bundle.get("Long"));
+                if(lat!=0 && lon!=0){
+                    latLng = new LatLng(lat, lon);
+                }}
+
+
             googleMap.addMarker(new MarkerOptions().position(latLng).title("Alwar"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
