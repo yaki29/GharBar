@@ -23,10 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudant.sync.documentstore.DocumentStoreException;
-import com.example.user.gharbar.Fragments.ViewPlacesFragment;
 import com.example.user.gharbar.Models.User;
 import com.example.user.gharbar.R;
-import com.example.user.gharbar.Utilities.PlaceModel;
 import com.example.user.gharbar.Utilities.UserModel;
 
 import java.net.URISyntaxException;
@@ -114,8 +112,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("email", allusers.get(i).getEmail());
-                                    editor.putString("id",allusers.get(i).getId());
+                                    editor.putInt("id",i);
+                                    editor.putString("name",allusers.get(i).getName());
                                     editor.putString("category",allusers.get(i).getCategory());
+                                    editor.putString("address",allusers.get(i).getAddressline1());
+                                    editor.putString("contact",allusers.get(i).getContact());
                                    // Toast.makeText(this, allusers.get(i).getCategory()+allusers.get(i).getId(), Toast.LENGTH_SHORT).show();
 
 

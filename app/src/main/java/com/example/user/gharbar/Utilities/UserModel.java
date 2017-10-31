@@ -3,6 +3,7 @@ package com.example.user.gharbar.Utilities;
 import android.content.Context;
 import android.util.Log;
 
+import com.cloudant.sync.documentstore.ConflictException;
 import com.cloudant.sync.documentstore.DocumentBodyFactory;
 import com.cloudant.sync.documentstore.DocumentException;
 import com.cloudant.sync.documentstore.DocumentRevision;
@@ -162,5 +163,16 @@ public class UserModel {
 
     public void setReplicationListener(LoginActivity loginActivity) {
         this.mListener = loginActivity;
+    }
+
+    public User updateDocument(User task) throws ConflictException, DocumentStoreException {
+        DocumentRevision rev = task.getDocumentRevision();
+        rev.setBody(DocumentBodyFactory.create(task.asMap()));
+        try {
+            DocumentRevision updated = this.mDocumentStore.database().update(rev);
+            return User.fromRevision(updated);
+        } catch (DocumentException de) {
+            return null;
+        }
     }
 }

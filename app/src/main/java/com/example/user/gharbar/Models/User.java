@@ -57,6 +57,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.category = category;
+        this.addressline1="No Address added";
+        this.contact="No contact found";
     }
 
     public String getContact() {
@@ -151,6 +153,8 @@ public class User {
             t.setEmail((String) map.get("email"));
             t.setPassword((String) map.get("password"));
             t.setCategory((String)map.get("category"));
+            t.setAddressline1((String)map.get("addline1"));
+            t.setContact((String)map.get("contact"));
             return t;
         }
         return null;
@@ -165,8 +169,12 @@ public class User {
         map.put("password",password);
         map.put("category",category);
         map.put("id",id);
+        map.put("addline1",addressline1);
+        map.put("contact",contact);
         return map;
     }
-
+    public DocumentRevision getDocumentRevision() {
+        return rev;
+    }
 
 }

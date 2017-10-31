@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.gharbar.Fragments.AddPlacesFragment;
+import com.example.user.gharbar.Fragments.ProfileFragment;
 import com.example.user.gharbar.R;
 
 public class ProprietorActivity extends AppCompatActivity {
@@ -216,10 +217,10 @@ public class ProprietorActivity extends AppCompatActivity {
                 return addplaces;
 
 
-            /*case 1:
-                AddServiceFrag addService=new AddServiceFrag();
+            case 1:
+                ProfileFragment addService=new ProfileFragment();
                 return addService;
-            case 2:
+            /*case 2:
                 AddBarberFragment addBarber=new AddBarberFragment();
                 return addBarber;
 
@@ -265,11 +266,11 @@ public class ProprietorActivity extends AppCompatActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_PROFILE;
                         break;
-                    /*case R.id.add_service:
+                    case R.id.profile:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_ADD_SERVICE;
+                        CURRENT_TAG = TAG_PROFILE;
                         break;
-                    case R.id.add_barber:
+                    /*case R.id.add_barber:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_ADD_BARBER;
                         break;

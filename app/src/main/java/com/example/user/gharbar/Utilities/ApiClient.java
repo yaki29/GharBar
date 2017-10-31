@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL ="http://34.212.162.87";
+    public static final String BASE_URL ="http://eventapp.000webhostapp.com";
     private static Retrofit retrofit = null;
     public static int unique_id;
 

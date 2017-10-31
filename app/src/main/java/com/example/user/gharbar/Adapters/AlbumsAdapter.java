@@ -22,11 +22,16 @@ import java.util.ArrayList;
  */
 public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder> {
 
+    final private ListItemClickListener mOnClickListener;
     private Context mContext;
     String validation;
-    private ArrayList<Place> albumList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    private ArrayList<Place> albumList;
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, count,verified;
         public ImageView thumbnail;
 
@@ -36,12 +41,19 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             count = (TextView) view.findViewById(R.id.count);
             verified=(TextView)view.findViewById(R.id.verified);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            thumbnail.setOnClickListener(this);
+            view.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
         }
     }
 
 
-    public AlbumsAdapter(Context mContext, ArrayList<Place> albumList) {
+    public AlbumsAdapter(Context mContext, ArrayList<Place> albumList,ListItemClickListener listener) {
         Log.v("SIZE",albumList.size()+"");
         if (mContext == null) {
             throw new IllegalArgumentException("Context must not be null.");
@@ -51,13 +63,13 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         }
         this.mContext = mContext;
         this.albumList = albumList;
+        mOnClickListener=listener;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.album_card, parent, false);
-
 
         return new MyViewHolder(itemView);
     }
@@ -69,7 +81,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         if(album.getValidation()==false){
             Log.v("hello","KO");
 
-           holder.verified.setText("Verification Pending");
+            holder.verified.setText("Verification Pending");
             holder.verified.setTextColor(Color.parseColor("#FFF40404"));
         }
         else{
@@ -79,10 +91,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         holder.count.setText("Expected Rent ::"+album.getStartingPrice()+"INR");
         Glide.with(mContext).load(R.drawable.gharbar).into(holder.thumbnail);
 
-
     }
     @Override
     public int getItemCount() {
         return albumList.size();
-    }
-}
+    }}

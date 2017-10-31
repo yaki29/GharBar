@@ -1,5 +1,6 @@
 package com.example.user.gharbar.Fragments;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -16,20 +17,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cloudant.sync.documentstore.DocumentStoreException;
+import com.example.user.gharbar.Activities.MapActivity;
 import com.example.user.gharbar.Adapters.AlbumsAdapter;
 import com.example.user.gharbar.Models.Place;
 import com.example.user.gharbar.R;
 import com.example.user.gharbar.Utilities.PlaceModel;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,AlbumsAdapter.ListItemClickListener  {
 
     private RecyclerView recyclerView;
     View view;
     private int a=0;
+    ArrayList<Place> tasks;
     private AlbumsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<Place> place;
@@ -175,7 +176,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
             stask.startPullReplication();
             ArrayList<Place> tasks = (ArrayList<Place>) this.stask.allTasks();
             if(tasks!=null) {
-                this.adapter = new AlbumsAdapter(this.getActivity(), tasks);
+                this.adapter = new AlbumsAdapter(this.getActivity(), tasks,this);
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
                 recyclerView.setLayoutManager(mLayoutManager);
                 //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -214,6 +215,26 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         //stask.startPullReplication();
         // Load the tasks from the model
         this.reloadTasksFromModel();
+    }
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        Log.v("Item No",""+clickedItemIndex);
+//        Log.v("PlaceModel",""+tasks.get(clickedItemIndex).getPlaceName());
+        Place place = tasks.get(clickedItemIndex);
+
+        Intent intent = new Intent(getActivity().getBaseContext(),MapActivity.class);
+        intent.putExtra("Name",place.getPlaceName());
+        intent.putExtra("Add",place.getAddLine1());
+        intent.putExtra("Price",place.getStartingPrice());
+        intent.putExtra("Gym",place.isGym());
+        intent.putExtra("Swimming Pool",place.isSwimmingpool());
+        intent.putExtra("Garden",place.isGarden());
+        intent.putExtra("Lift",place.isLift());
+        intent.putExtra("Cafeteria",place.isCafeteria());
+        intent.putExtra("Lat",27.552494);
+        intent.putExtra("Long",76.631267);
+        getActivity().startActivity(intent);
+
     }
 }
 

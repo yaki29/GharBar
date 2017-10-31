@@ -7,12 +7,12 @@
             android:title="View Place"
 
             android:icon="@drawable/ic_domain_black_24dp"/>
-        <!--<item
-            android:id="@+id/add_service"
-            android:title="Add Service"
-            android:icon="@drawable/ic_add_to_photos_black_24dp"/>
-
         <item
+            android:id="@+id/edit_profile"
+            android:title="Profile"
+            android:icon="@drawable/ic_person_black_24dp"/>
+
+      <!--  <item
             android:id="@+id/add_barber"
             android:title="Add Barber"
             android:icon="@drawable/ic_person_add_black_24dp"/>
