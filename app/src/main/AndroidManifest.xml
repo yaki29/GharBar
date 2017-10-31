@@ -28,6 +28,12 @@
         <activity android:name=".Activities.TenantActivity" />
         <activity android:name=".Activities.ProprietorActivity" />
         <activity android:name=".Activities.MapActivity"></activity>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCZK8xS8I3_T8n9eGOMMIjyd0_BZsI9wK0" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

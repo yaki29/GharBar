@@ -30,10 +30,9 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
     private RecyclerView recyclerView;
     View view;
     private int a=0;
-    ArrayList<Place> tasks;
     private AlbumsAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    ArrayList<Place> place;
+    ArrayList<Place> tasks;
     PlaceModel stask;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         prepareAlbums();
 
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-       view = v.findViewById(R.id.empty_view);
+        view = v.findViewById(R.id.empty_view);
         view.setVisibility(View.GONE);
         swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_layout);
         // Protect creation of static variable.
@@ -63,9 +62,9 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         // Load the tasks from the model
         swipeRefreshLayout.setRefreshing(true);
 
-       // this.reloadTasksFromModel();
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,R.color.green,R.color.red);
         swipeRefreshLayout.setOnRefreshListener(this);
+        //   this.reloadTasksFromModel();
 
 
 
@@ -83,8 +82,8 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
 //
 //                       adapter = new AlbumsAdapter(getContext(), place);
 //
-//            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
 //            recyclerView.setLayoutManager(mLayoutManager);
+//            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
 //            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
 //            recyclerView.setItemAnimator(new DefaultItemAnimator());
 //            recyclerView.setAdapter(adapter);
@@ -112,6 +111,27 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
 
             }
         },5000);
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        Log.v("Item No",""+clickedItemIndex);
+//        Log.v("PlaceModel",""+tasks.get(clickedItemIndex).getPlaceName());
+        Place place = tasks.get(clickedItemIndex);
+
+        Intent intent = new Intent(getActivity().getBaseContext(),MapActivity.class);
+        intent.putExtra("Name",place.getPlaceName());
+        intent.putExtra("Add",place.getAddLine1());
+        intent.putExtra("Price",place.getStartingPrice());
+        intent.putExtra("Gym",place.isGym());
+        intent.putExtra("Swimming Pool",place.isSwimmingpool());
+        intent.putExtra("Garden",place.isGarden());
+        intent.putExtra("Lift",place.isLift());
+        intent.putExtra("Cafeteria",place.isCafeteria());
+        intent.putExtra("Lat",27.552494);
+        intent.putExtra("Long",76.631267);
+        getActivity().startActivity(intent);
+
     }
 
     /**
@@ -174,7 +194,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         try {
             //recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
             stask.startPullReplication();
-            ArrayList<Place> tasks = (ArrayList<Place>) this.stask.allTasks();
+            tasks = (ArrayList<Place>) this.stask.allTasks();
             if(tasks!=null) {
                 this.adapter = new AlbumsAdapter(this.getActivity(), tasks,this);
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
@@ -182,6 +202,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
                 //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(this.adapter);
+                Log.v("Log123",""+adapter.getItemCount());
                 if(adapter.getItemCount()==0)
                 {
                     view.setVisibility(View.VISIBLE);
@@ -197,6 +218,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         } catch (DocumentStoreException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
@@ -216,25 +238,6 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         // Load the tasks from the model
         this.reloadTasksFromModel();
     }
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-        Log.v("Item No",""+clickedItemIndex);
-//        Log.v("PlaceModel",""+tasks.get(clickedItemIndex).getPlaceName());
-        Place place = tasks.get(clickedItemIndex);
-
-        Intent intent = new Intent(getActivity().getBaseContext(),MapActivity.class);
-        intent.putExtra("Name",place.getPlaceName());
-        intent.putExtra("Add",place.getAddLine1());
-        intent.putExtra("Price",place.getStartingPrice());
-        intent.putExtra("Gym",place.isGym());
-        intent.putExtra("Swimming Pool",place.isSwimmingpool());
-        intent.putExtra("Garden",place.isGarden());
-        intent.putExtra("Lift",place.isLift());
-        intent.putExtra("Cafeteria",place.isCafeteria());
-        intent.putExtra("Lat",27.552494);
-        intent.putExtra("Long",76.631267);
-        getActivity().startActivity(intent);
-
-    }
 }
+
 

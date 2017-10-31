@@ -38,7 +38,7 @@
                     android:scaleX="1"
                     android:scaleY="1"
                     android:layout_below="@id/Name"
-                    android:layout_alignBottom="@id/Name_des"
+                    android:layout_alignBottom="@+id/Name_des"
                     android:paddingTop="10dp"
                     android:paddingRight="4dp"
                     />
@@ -71,8 +71,8 @@
                     android:src="@drawable/ic_local_shipping_black_24dp"
                     android:scaleX="1"
                     android:scaleY="1"
-                    android:layout_below="@id/Add"
-                    android:layout_alignBottom="@id/Add_des"
+                    android:layout_below="@+id/Add"
+                    android:layout_alignBottom="@+id/Add_des"
                     android:paddingTop="10dp"
                     android:paddingRight="4dp"
                     />
@@ -102,15 +102,15 @@
                     android:src="@drawable/rupee"
                     android:scaleX="1"
                     android:scaleY="1"
-                    android:layout_alignBottom="@id/Price_des"
-                    android:layout_toLeftOf="@id/Price_des"
+                    android:layout_alignBottom="@+id/Price_des"
+                    android:layout_toLeftOf="@+id/Price_des"
                     android:id="@+id/imageView" />
                 <TextView
                     android:id="@+id/Price_des"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/Price"
-                    android:layout_toLeftOf="@id/Price"
+                    android:layout_below="@+id/Price"
+                    android:layout_toLeftOf="@+id/Price"
                     android:layout_alignParentRight="true"
                     android:paddingTop="10dp"
                     android:textSize="16sp"
@@ -132,7 +132,7 @@
                 <TextView
                     android:id="@+id/Amenties"
                     android:layout_width="wrap_content"
-                    android:text="Amneties"
+                    android:text="Amenties"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     android:layout_height="wrap_content" />
