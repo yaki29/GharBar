@@ -51,10 +51,12 @@
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="proprietor_titles">
         <item>Add Place</item>
+        <item>Profile</item>
 
     </string-array>
     <string-array name="tenant_titles">
         <item>View Place</item>
+        <item>Profile</item>
 
     </string-array>
 

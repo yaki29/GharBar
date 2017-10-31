@@ -7,10 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +22,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.gharbar.Fragments.ProfileFragment;
 import com.example.user.gharbar.Fragments.ViewPlacesFragment;
 import com.example.user.gharbar.R;
-import com.example.user.gharbar.Utilities.PlaceModel;
 
 public class TenantActivity extends AppCompatActivity {
 
-    NavigationView navigationView;
+    BottomNavigationView navigationView;
 
     private DrawerLayout drawer;
     private View navHeader;
@@ -69,11 +69,13 @@ public class TenantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tenant);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mHandler = new Handler();
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view1);
+         navigationView = (BottomNavigationView) findViewById(R.id.nav_view1);
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        changeFragment(new ViewPlacesFragment());
+      /*  drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (BottomNavigationView) findViewById(R.id.nav_view1);
         // Navigation view header
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
 
@@ -88,15 +90,15 @@ public class TenantActivity extends AppCompatActivity {
 
 
         // load toolbar titles from string resources
-        activityTitles = getResources().getStringArray(R.array.tenant_titles);
+        activityTitles = getResources().getStringArray(R.array.tenant_titles);}
 
 
 
 
         // initializing navigation menu
-        setUpNavigationView();
+       // setUpNavigationView();
 
-        if (savedInstanceState == null) {
+       /* if (savedInstanceState == null) {
             navItemIndex = 0;
             CURRENT_TAG = TAG_PROFILE;
             loadHomeFragment();
@@ -120,48 +122,13 @@ public class TenantActivity extends AppCompatActivity {
 
 
     }
+*/
 
 
 
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    /*    String imageUrl=shared.getString("image","");
-        if(!imageUrl.equals(""))
-        {
-            Glide.with(getApplicationContext()).load(imageUrl)
-                    .placeholder(R.drawable.face)
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            progressBar.setVisibility(View.GONE);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            progressBar.setVisibility(View.GONE);
-                            return false;
-                        }
-                    })
-
-                    .centerCrop()
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(glideImage);
-        }  */
-
-
-    }
-
-
-    /***
-     * Returns respected fragment that user
-     * selected from navigation menu
-     */
-    private void loadHomeFragment() {
+    /*private void loadHomeFragment() {
         // selecting appropriate nav menu item
         selectNavMenu();
 
@@ -215,7 +182,7 @@ public class TenantActivity extends AppCompatActivity {
                 return viewplaces;
 
 
-            /*case 1:
+            case 1:
                 AddServiceFrag addService=new AddServiceFrag();
                 return addService;
             case 2:
@@ -232,12 +199,12 @@ public class TenantActivity extends AppCompatActivity {
                 return aboutUs;
             case 5:
                 ContactUsFragment contactUs=new ContactUsFragment();
-                return contactUs;*/
+                return contactUs;
 
 
 
-            default:
-                return new ViewPlacesFragment();
+          default:
+               return new ViewPlacesFragment();
         }
     }
 
@@ -250,8 +217,9 @@ public class TenantActivity extends AppCompatActivity {
     }
 
     private void setUpNavigationView() {
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+       //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
 
             // This method will trigger on item Click of navigation menu
             @Override
@@ -283,7 +251,7 @@ public class TenantActivity extends AppCompatActivity {
                     case R.id.contact_us:
                         navItemIndex = 5;
                         CURRENT_TAG = TAG_CONTACT_US;
-                        break;*/
+                        break;
 
 
                     case R.id.log_out:
@@ -317,11 +285,11 @@ public class TenantActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
 
 
-    @Override
+    /*@Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         //Setting the actionbarToggle to drawer layout
@@ -355,7 +323,7 @@ public class TenantActivity extends AppCompatActivity {
 
 
 
-    }
+    }*/
     private boolean haveNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
@@ -371,5 +339,51 @@ public class TenantActivity extends AppCompatActivity {
                     haveConnectedMobile = true;
         }
         return haveConnectedWifi || haveConnectedMobile;
+    }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.view_place:
+                    changeFragment(new ViewPlacesFragment());
+                    return true;
+                case R.id.edit_profile:
+                    changeFragment(new ProfileFragment());
+                    return true;
+                case R.id.log_out:
+                    SharedPreferences sharedPreferences = getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("email", "");
+                    editor.putString("category","");
+                    editor.putString("image","");
+                    editor.putString("shopname","");
+                    editor.apply();
+                    startActivity(new Intent(TenantActivity.this, OptionActivity.class));
+
+                   // drawer.closeDrawers();
+                    finish();
+                    break;
+
+                default:
+                    changeFragment(new ViewPlacesFragment());
+                    return true;
+               /*
+                case R.id.navigation_notifications:
+                    changeFragment(new ItemFragment());
+                    return true;*/
+            }
+            return false;
+        }
+
+    };
+
+    private void changeFragment(Fragment fm){
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame, fm);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="300dp"
+    >
+    <TextView
+
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Your Location"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"/>
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Locality"
+
+        android:textColor="#000000"/>
+    <EditText
+        android:id="@+id/locality"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+
+        android:textSize="12sp"
+        />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City"
+
+        android:textColor="#000000"/>
+    <EditText
+        android:id="@+id/city"
+        android:textSize="12sp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        />
+    <TextView
+        android:id="@+id/gpstv"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="OR click here to Use GPS to get your current loaction\n(You should be at your rental place)"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFDA0813"
+        />
+
+
+</LinearLayout>
+

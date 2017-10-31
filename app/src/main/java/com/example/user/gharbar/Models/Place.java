@@ -30,15 +30,30 @@ public class Place {
 
     boolean apartment;
     boolean house;
+    String latitude;
+    String longitude;
+    String picUrl;
 
     private Place() {}
-    public Place(String placeName, String addLine1, String addLine2,String city,String state,String bhk,String startingPrice,String proprieterID,boolean lift,boolean garden,boolean swimmingpool,boolean gym,boolean cafeteria,boolean house,boolean apartment){
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public Place(String placeName, String addLine1, String addLine2, String city, String state, String bhk, String startingPrice, String proprieterID, boolean lift, boolean garden, boolean swimmingpool, boolean gym, boolean cafeteria, boolean house, boolean apartment, String latitude, String longitude, String picUrl){
         this.placeName = placeName;
         this.addLine1 = addLine1;
         this.addLine2 = addLine2;
         this.city = city;
+
         this.state= state;
         this.bhk = bhk;
+        this.latitude=latitude;
+        this.longitude=longitude;
         this.proprieterID = proprieterID;
         this.tenantID = null;
         this.startingPrice=startingPrice;
@@ -49,6 +64,7 @@ public class Place {
         this.garden=garden;
         this.apartment=apartment;
         this.house=house;
+        this.picUrl=picUrl;
         this.validation=false;
     }
 
@@ -82,6 +98,22 @@ public class Place {
 
     public void setGym(boolean gym) {
         this.gym = gym;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public boolean isCafeteria() {
@@ -233,6 +265,9 @@ public class Place {
             t.setLift((Boolean)map.get("lift"));
             t.setApartment((Boolean)map.get("apartment"));
             t.setHouse((Boolean)map.get("house"));
+            t.setLatitude((String)map.get("latitude"));
+            t.setLongitude((String)map.get("longitude"));
+               t.setPicUrl((String)map.get("picUrl"));
          //   t.setValidation((Boolean)map.get("validation"));
             return t;
         }
@@ -259,6 +294,9 @@ public class Place {
         map.put("lift",lift);
         map.put("apartment",apartment);
         map.put("house",house);
+        map.put("latitude",latitude);
+        map.put("longitude",longitude);
+         map.put("picUrl",picUrl);
        // map.put("validation",validation);
         return map;
     }

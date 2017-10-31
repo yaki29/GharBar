@@ -1,8 +1,8 @@
 package com.example.user.gharbar.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.user.gharbar.Map_Activity;
 import com.example.user.gharbar.Models.Place;
 import com.example.user.gharbar.R;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
 /**
  * Created by Pablo Shakun 2/10/2019.
  */
-public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder>  {
+public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder> {
 
     final private ListItemClickListener mOnClickListener;
     private Context mContext;
@@ -30,7 +31,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
     private ArrayList<Place> albumList;
     public interface ListItemClickListener {
-        void onListItemClick(int clickedItemIndex);
+        void onListItemClick(int clickedItemIndex) throws IOException;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -50,7 +51,11 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPosition);
+            try {
+                mOnClickListener.onListItemClick(clickedPosition);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -83,7 +88,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         if(album.getValidation()==false){
             Log.v("hello","KO");
 
-           holder.verified.setText("Verification Pending");
+            holder.verified.setText("Verification Pending");
             holder.verified.setTextColor(Color.parseColor("#FFF40404"));
         }
         else{
@@ -91,11 +96,11 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             holder.verified.setTextColor(Color.parseColor("#FF14F404"));
         }
         holder.count.setText("Expected Rent ::"+album.getStartingPrice()+"INR");
-        Glide.with(mContext).load(R.drawable.gharbar).into(holder.thumbnail);
+        //Uri.parse("http://lorempixel.com/400/200/sports/0/");
+        Glide.with(mContext).load(Uri.parse(album.getPicUrl())).placeholder(R.drawable.gharbar).dontAnimate().into(holder.thumbnail);
 
     }
     @Override
     public int getItemCount() {
         return albumList.size();
-    }
-}
+    }}

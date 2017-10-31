@@ -4,14 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.user.gharbar.BlankFragment;
-import com.example.user.gharbar.NumberFragment;
+import com.example.user.gharbar.Fragments.DescriptionFragment;
+import com.example.user.gharbar.Fragments.PhotoFragment;
 
 /**
- * Created by pablo on 27/10/17.
+ * Created by user on 31/10/17.
  */
 
-public class Fragment_Adapter extends FragmentPagerAdapter {
+public class Fragment_Adapter extends FragmentPagerAdapter{
     private String tabtitles[]=new String[]{"Description","Photos"};
     public Fragment_Adapter(FragmentManager fm) {
         super(fm);
@@ -20,9 +20,9 @@ public class Fragment_Adapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position ==0)
-            return new NumberFragment();
+            return new DescriptionFragment();
         else
-            return  new BlankFragment();
+            return  new PhotoFragment();
 
     }
 

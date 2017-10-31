@@ -1,12 +1,12 @@
-package com.example.user.gharbar;
+package com.example.user.gharbar.Activities;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.example.user.gharbar.Adapters.Fragment_Adapter;
+import com.example.user.gharbar.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,12 +14,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Map_Activity extends AppCompatActivity implements OnMapReadyCallback {
-
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_);
+        setContentView(R.layout.activity_map);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -38,6 +37,9 @@ public class Map_Activity extends AppCompatActivity implements OnMapReadyCallbac
             double lon = bundle.getDouble("Long");
 
             LatLng latLng = new LatLng(27.552494, 76.631267);
+            if(lat!=0 && lon!=0){
+                latLng = new LatLng(lat, lon);
+            }
             googleMap.addMarker(new MarkerOptions().position(latLng).title("Alwar"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
@@ -46,4 +48,3 @@ public class Map_Activity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 }
-

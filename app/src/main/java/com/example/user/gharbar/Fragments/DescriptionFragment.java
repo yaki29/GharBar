@@ -1,4 +1,4 @@
-package com.example.user.gharbar;
+package com.example.user.gharbar.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by pablo on 27/10/17.
- */
+import com.example.user.gharbar.R;
 
-public class NumberFragment extends Fragment {
+
+public class DescriptionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view=inflater.inflate(R.layout.description,container,false);
+        View view=inflater.inflate(R.layout.fragment_description,container,false);
         Bundle bundle = getActivity().getIntent().getExtras();
         String Name = bundle.getString("Name");
         String Add = bundle.getString("Add");
@@ -50,7 +49,9 @@ public class NumberFragment extends Fragment {
             Garden.setVisibility(View.VISIBLE);
         if(cafeteria)
             Cafetria.setVisibility(View.VISIBLE);
-
-    return  view;
+        TextView profile = (TextView)view.findViewById(R.id.profile);
+        profile.setText(bundle.getString("Proprietor"));
+        return view;
     }
+
 }
