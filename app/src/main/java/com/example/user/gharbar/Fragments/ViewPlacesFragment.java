@@ -136,16 +136,12 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         Log.v("Item No", "" + clickedItemIndex);
 //        Log.v("PlaceModel",""+tasks.get(clickedItemIndex).getPlaceName());
         Place place = tasks.get(clickedItemIndex);
-        if(filtertask!=null){
-            place=filtertask.get(clickedItemIndex);
-        }
-        Log.v("LastClicked",""+clickedItemIndex);
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         try {
             android.location.Address location = geocoder.getFromLocationName(place.getCity(), 1).get(0);
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            Log.v("stringyash", "" + location.getLatitude()+"  adapter"+place.getLatitude());
+           // Log.v("stringyash", "" + location.getLatitude()+"  adapter"+place.getLatitude());
             Log.v("stringyashlongitude", "" + location.getLongitude());
         } catch (IOException e) {
             e.printStackTrace();
@@ -153,6 +149,7 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
 
         Intent intent = new Intent(getActivity().getBaseContext(), MapActivity.class);
         intent.putExtra("Proprietor", place.getProprieterID());
+        //intent.putExtra("Tenant",place.getT);
         intent.putExtra("Name", place.getPlaceName());
         intent.putExtra("Add", place.getAddLine1());
         intent.putExtra("Price", place.getStartingPrice());
