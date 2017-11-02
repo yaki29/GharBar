@@ -360,7 +360,7 @@ public class TenantActivity extends AppCompatActivity {
                     editor.putString("image","");
                     editor.putString("shopname","");
                     editor.apply();
-                    startActivity(new Intent(TenantActivity.this, OptionActivity.class));
+                    startActivity(new Intent(TenantActivity.this, LoginActivity.class));
 
                    // drawer.closeDrawers();
                     finish();
@@ -383,7 +383,12 @@ public class TenantActivity extends AppCompatActivity {
         android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame, fm);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack(null);
         ft.commit();
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
     }
 }

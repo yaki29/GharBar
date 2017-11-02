@@ -300,4 +300,7 @@ public class Place {
        // map.put("validation",validation);
         return map;
     }
+    public DocumentRevision getDocumentRevision() {
+        return rev;
+    }
 }

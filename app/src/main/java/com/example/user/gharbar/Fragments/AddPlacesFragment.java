@@ -74,8 +74,8 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
     EditText placeName,addLine1,addLine2,city,state,bhk,startingprice;
     CheckBox lift,gym,garden,swimmingpool,cafeteria,apartment,house;
     String proprieterID,absurd,mediaPath,nameImage,imageUrl;
-    public Double latitude;
-    public Double longitude;
+    //public Double latitude;
+    //public Double longitude;
     boolean liftvalue=false ,gymvalue=false ,gardenvalue=false ,swimmingpoolvalue=false ,cafeteriavalue=false ,apartmentvalue=false ,housevalue=false;
     ProgressDialog progressDialog;
     private GoogleApiClient mGoogleApiClient;
@@ -103,7 +103,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
         if(!haveNetworkConnection()){
             Toast.makeText(getContext(), "Please connect to Internet", Toast.LENGTH_SHORT).show();
         }
-        progressDialog=new ProgressDialog(getActivity());
+     //   progressDialog=new ProgressDialog(getActivity());
 
     }
 
@@ -117,10 +117,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
         placeName = (EditText)Rootview.findViewById(R.id.placeName);
         addLine1 = (EditText)Rootview.findViewById(R.id.addLine1);
         picUpload = (Button)Rootview.findViewById(R.id.btnpic);
-
-
         addLine1.setOnTouchListener(mtouchListener);
-
         city = (EditText)Rootview.findViewById(R.id.city);
         state = (EditText)Rootview.findViewById(R.id.state);
         bhk = (EditText)Rootview.findViewById(R.id.bhk);
@@ -167,13 +164,13 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
                     Toast.makeText(getContext(), "Please connect to Internet", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
-                showAlertDialog();
+                //Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+              //  showAlertDialog();
 
-                if(latitude!=null && longitude!=null && docFlag==1 ){
+                if(docFlag==1 ){
                     if(flag!=0){uploadFile();}
                     if(docFlag==1){uploadMultipart();uploaddocuments.setClickable(false);}
-                createNewPlace(placeName.getText().toString(),addLine1.getText().toString(),absurd,city.getText().toString(),state.getText().toString(),bhk.getText().toString(),startingprice.getText().toString(),proprieterID,liftvalue,gardenvalue,swimmingpoolvalue,gymvalue,cafeteriavalue,housevalue,apartmentvalue,latitude.toString(),longitude.toString(),imageUrl);
+                createNewPlace(placeName.getText().toString(),addLine1.getText().toString(),absurd,city.getText().toString(),state.getText().toString(),bhk.getText().toString(),startingprice.getText().toString(),proprieterID,liftvalue,gardenvalue,swimmingpoolvalue,gymvalue,cafeteriavalue,housevalue,apartmentvalue,"27.1234567","27.1234567",imageUrl);
                 placeName.setText("");
                     bhk.setText("");
                     startingprice.setText("");
@@ -191,13 +188,16 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
 
                 }
                 else{
-                    showAlertDialog();
+                   // showAlertDialog();
                 }}
             }
             else {
                 Toast.makeText(getActivity(), "Please enter all the Details correctly", Toast.LENGTH_SHORT).show();
 
             }
+            Toast.makeText(getActivity(), " Thanks for Adding a New House", Toast.LENGTH_SHORT).show();
+
+
 
         }
         if(view.getId()==R.id.btnpic){
@@ -222,7 +222,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
     }
 
     private void createNewPlace(String placeName, String addLine1, String addLine,String city,String state,String bhk,String startingPrice,String proprieterID,boolean lift,boolean garden,boolean swimmingpool,boolean gym,boolean cafeteria,boolean house,boolean apartment,String latitude,String longitude,String imageUrl){
-        Place t = new Place(placeName,addLine1,addLine,city,state,bhk,startingPrice,proprieterID,lift,garden,swimmingpool,gym,cafeteria,house,apartment,latitude,longitude,imageUrl);
+        Place t = new Place(placeName,addLine1,addLine,city,state,bhk,startingPrice,proprieterID,lift,garden,swimmingpool,gym,cafeteria,house,apartment,"27.1234567","28.1234567",imageUrl);
         sTasks.createDocument(t);
         reloadReplicationSettings();
         sTasks.startPushReplication();
@@ -308,7 +308,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
                 docFlag=1;
             }
             // When an Image is picked
-            else if (requestCode == 0 && resultCode == RESULT_OK && null != data) {
+            else if (requestCode == 0 && resultCode == RESULT_OK && data!=null) {
 
                 // Get the Image from data
                 Uri selectedImage = data.getData();
@@ -343,7 +343,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
     }
     // Uploading Image/Video
     private void uploadFile() {
-        progressDialog.show();
+       // progressDialog.show();
 
         // Map is used to multipart the file using okhttp3.RequestBody
         File file = new File(mediaPath);
@@ -372,7 +372,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
                     assert serverResponse != null;
                     Log.v("Response", serverResponse.toString());
                 }
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
 
             @Override
@@ -384,7 +384,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
 
 
     public void setImageUrl(){
-        imageUrl="http://eventapp.000webhostapp.com/picUpload.php/ownerImages/"+nameImage;
+        imageUrl="http://eventapp.000webhostapp.com/ownerImages/"+nameImage;
     }
 
 
@@ -401,8 +401,8 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
 
 
                     if (location != null){
-                        latitude=(mlocation.getLatitude());
-                        longitude=(mlocation.getLongitude());
+                       // latitude=(mlocation.getLatitude());
+                        //longitude=(mlocation.getLongitude());
 
                         b.dismiss();
 
@@ -490,9 +490,9 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
                     } else {
 
                         String[] valuesH = s.toString().split("\\s");
-                        latitude = Double.parseDouble(valuesH[0]);
-                        longitude = Double.parseDouble(valuesH[1]);
-                        Log.d("LogH", "after values" + latitude + " " + longitude);
+                       // latitude = Double.parseDouble(valuesH[0]);
+                       // longitude = Double.parseDouble(valuesH[1]);
+                        //Log.d("LogH", "after values" + latitude + " " + longitude);
 
                     }
 
@@ -599,7 +599,7 @@ public class AddPlacesFragment extends Fragment implements View.OnClickListener,
                         .setMaxRetries(2)
                         .addParameter("placename",placeName.getText().toString())
                         .startUpload(); //Starting the upload
-                Toast.makeText(getActivity(),"Uploaded Successfully",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),"Uploaded Successfully",Toast.LENGTH_SHORT).show();
 
             } catch (Exception exc) {
                 Toast.makeText(getActivity(), exc.getMessage(), Toast.LENGTH_SHORT).show();

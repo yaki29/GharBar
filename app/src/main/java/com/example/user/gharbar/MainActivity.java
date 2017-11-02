@@ -1,13 +1,18 @@
 package com.example.user.gharbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.example.user.gharbar.Activities.LoginActivity;
 import com.example.user.gharbar.Activities.OptionActivity;
+import com.example.user.gharbar.Activities.ProprietorActivity;
+import com.example.user.gharbar.Activities.TenantActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //checkForLogin();
 
 
         setContentView(R.layout.activity_main);
@@ -46,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
     }
+
 }

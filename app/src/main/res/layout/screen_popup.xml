@@ -18,7 +18,7 @@
         android:background="#e0e0e0"
         android:drawableLeft="@drawable/domain"
         android:drawablePadding="10dp"
-        android:hint="Address Line 1"
+        android:hint="House No"
         android:paddingLeft="16dp" />
 
     <EditText
@@ -33,7 +33,7 @@
         android:background="#e0e0e0"
         android:drawableLeft="@drawable/domain"
         android:drawablePadding="10dp"
-        android:hint="Address Line 2"
+        android:hint="Locality"
         android:paddingLeft="16dp"
          />
 

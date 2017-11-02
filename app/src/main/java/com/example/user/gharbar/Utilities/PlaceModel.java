@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.cloudant.sync.documentstore.ConflictException;
 import com.cloudant.sync.documentstore.DocumentBodyFactory;
 import com.cloudant.sync.documentstore.DocumentException;
 import com.cloudant.sync.documentstore.DocumentRevision;
@@ -16,6 +17,7 @@ import com.cloudant.sync.replication.ReplicatorBuilder;
 import com.example.user.gharbar.Fragments.AddPlacesFragment;
 import com.example.user.gharbar.Fragments.ViewPlacesFragment;
 import com.example.user.gharbar.Models.Place;
+
 
 import java.io.File;
 import java.net.URI;
@@ -171,6 +173,16 @@ public class PlaceModel {
 
     public void setReplicationListener(ViewPlacesFragment listener) {
         this.mListener = listener;
+    }
+    public Place updateDocument(Place task) throws ConflictException, DocumentStoreException {
+        DocumentRevision rev = task.getDocumentRevision();
+        rev.setBody(DocumentBodyFactory.create(task.asMap()));
+        try {
+            DocumentRevision updated = this.mDocumentStore.database().update(rev);
+            return Place.fromRevision(updated);
+        } catch (DocumentException de) {
+            return null;
+        }
     }
 
 

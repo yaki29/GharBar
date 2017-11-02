@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login.setOnClickListener(this);
         nota.setOnClickListener(this);
 
-
+       // checkForLogin();
         // Protect creation of static variable.
         if (sTasks == null) {
             // Model needs to stay in existence for lifetime of app.
@@ -83,6 +84,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private void checkForLogin() {
+        SharedPreferences sharedPreferences = getSharedPreferences("loggedIn info", Context.MODE_PRIVATE);
+
+        if (!TextUtils.isEmpty(sharedPreferences.getString("category", ""))) {
+            if (sharedPreferences.getString("category", "").equals("Proprietor")) {
+                startActivity(new Intent(this, ProprietorActivity.class));
+                finish();
+            }
+
+            else if (sharedPreferences.getString("category","").equals("Tenant")) {
+                startActivity(new Intent(this, TenantActivity.class));
+                finish();
+            }
+            //} end of chk for homeservice
+        }}
     @Override
     public void onClick(View v) {
         progressDialog.show();
@@ -343,9 +359,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.sTasks.setReplicationListener(this);
         //stask.startPullReplication();
         // Load the tasks from the model
+        checkForLogin();
         this.reloadTasksFromModel();
     }
 
+    @Override
+    public void onBackPressed() {
+        checkForLogin();
+       // super.onBackPressed();
+
+    }
 }
 
 

@@ -136,9 +136,15 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
         Log.v("Item No", "" + clickedItemIndex);
 //        Log.v("PlaceModel",""+tasks.get(clickedItemIndex).getPlaceName());
         Place place = tasks.get(clickedItemIndex);
+        if(filtertask!=null){
+            place = filtertask.get(clickedItemIndex);
+        }else{
+             place = tasks.get(clickedItemIndex);
+        }
+
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         try {
-            android.location.Address location = geocoder.getFromLocationName(place.getCity(), 1).get(0);
+            android.location.Address location = geocoder.getFromLocationName(place.getAddLine1()+place.getAddLine2()+place.getCity(), 1).get(0);
             latitude = location.getLatitude();
             longitude = location.getLongitude();
            // Log.v("stringyash", "" + location.getLatitude()+"  adapter"+place.getLatitude());
@@ -254,16 +260,18 @@ public class ViewPlacesFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onDestroy() {
         Log.d("LOG_TAG", "onDestroy()");
-        super.onDestroy();
+
         recyclerView.setAdapter(null);
         // Clear our reference as listener.
         this.stask.setReplicationListener(null);
+        super.onDestroy();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         this.stask.setReplicationListener(this);
+
         //stask.startPullReplication();
         // Load the tasks from the model
         this.reloadTasksFromModel();

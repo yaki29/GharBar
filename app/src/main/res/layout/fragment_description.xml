@@ -238,7 +238,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:background="@color/colorAccent"
+    android:background="@drawable/btnback"
     android:fontFamily="sans-serif-condensed"
     android:textStyle="bold"
     android:text="Book Now"

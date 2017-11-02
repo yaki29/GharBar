@@ -1,24 +1,33 @@
 package com.example.user.gharbar.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudant.sync.documentstore.ConflictException;
 import com.cloudant.sync.documentstore.DocumentStoreException;
+import com.example.user.gharbar.Models.Place;
 import com.example.user.gharbar.Models.User;
 import com.example.user.gharbar.R;
+import com.example.user.gharbar.Utilities.PlaceModel;
 import com.example.user.gharbar.Utilities.UserModel;
 
 import java.net.URISyntaxException;
@@ -37,15 +46,21 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private AlertDialog b;
     Button save,changepassword;
+    boolean check;
     EditText Name,Email,Type,Address,Contact;
-    String ProfileName,ProfileEmail,ProfileType,ProfileAddress,ProfileContact;
+   private String passs,conp;
+    String ProfileName,ProfileEmail,ProfileType,ProfileAddress,ProfileContact,ProfilePassword;
     int ProfileId;
 
     // Main data model object
     private static UserModel sTasks;
     public List<User> allusers;
+
+    private static PlaceModel sTasksplace;
+    public List<Place> allplaces;
+
 
     public static final String SETTINGS_CLOUDANT_USER = "33460cc3-8818-44e0-81f4-0021d7711652-bluemix";
     public static final String SETTINGS_CLOUDANT_DB = "user-tenant";
@@ -105,6 +120,12 @@ public class ProfileFragment extends Fragment {
         }
 
 
+        if (sTasksplace == null) {
+            // Model needs to stay in existence for lifetime of app.
+            this.sTasksplace = new PlaceModel(this.getActivity());
+        }
+
+
         save = (Button)rootview.findViewById(R.id.Save);
         changepassword = (Button)rootview.findViewById(R.id.change_password);
         Name = (EditText)rootview.findViewById(R.id.Name);
@@ -128,8 +149,10 @@ public class ProfileFragment extends Fragment {
         Contact.setText(ProfileContact);
 
         reloadReplicationSettings(1);
+        sTasksplace.startPullReplication();
         try {
             allusers = sTasks.allTasks();
+            allplaces = sTasksplace.allTasks();
         } catch (DocumentStoreException e) {
             e.printStackTrace();
         }
@@ -142,10 +165,29 @@ public class ProfileFragment extends Fragment {
                     t.setEmail(Email.getText().toString());
                     t.setAddressline1(Address.getText().toString());
                     t.setContact(Contact.getText().toString());
+
+                    if(ProfilePassword!=null)
+                         t.setPassword(ProfilePassword);
+
                     t= sTasks.updateDocument(t);
                     allusers.set(ProfileId,t);
                     sTasks.startPushReplication();
+
+                    if(ProfileType.equals("Proprietor")) {
+                        for (int i = 0; i < allplaces.size(); i++) {
+                            if(allplaces.get(i).getProprieterID().equals(ProfileEmail)){
+                                Place p = allplaces.get(i);
+                                p.setProprieterID(Email.getText().toString());
+                                p=sTasksplace.updateDocument(p);
+                                allplaces.set(i,p);
+                            }
+                        }
+                    }
+
+                    sTasksplace.startPushReplication();
+
                     Toast.makeText(getActivity().getBaseContext(),"Successfully Saved",Toast.LENGTH_SHORT).show();
+
                 }
                 catch (ConflictException e){
 
@@ -155,6 +197,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        changepassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
         return rootview;
     }
 
@@ -216,6 +264,84 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getActivity(),
                     R.string.replication_error,
                     Toast.LENGTH_LONG).show();
+        }
+    }
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.change_pass, null);
+//        final EditText to = (EditText) dialogView.findViewById(R.id.filterto);
+//        final EditText from = (EditText) dialogView.findViewById(R.id.filterfrom);
+        final EditText npass = (EditText)dialogView.findViewById(R.id.newPassword1);
+       final EditText cpass = (EditText) dialogView.findViewById(R.id.confirmPassword1);
+        //cpass.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        npass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                b.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                passs=s.toString();
+                b.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                passs=s.toString();
+                check=checkPasswordMatch(passs,conp,cpass);
+
+            }
+        });
+        cpass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                b.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                conp=s.toString();
+                b.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                conp=s.toString();
+                check=checkPasswordMatch(passs,conp,cpass);
+            }
+        });
+
+        builder.setTitle("Change Password");
+        builder.setView(dialogView);
+
+
+        builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
+            /*String City=city.getText().toString();
+            int too=Integer.parseInt(to.getText().toString());
+            int fromm=Integer.parseInt(from.getText().toString());*/
+
+            public void onClick(DialogInterface dialog, int whichButton) {
+                ProfilePassword = conp;
+            }
+
+        });
+
+        b = builder.create();
+        b.show();
+        b.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+    }
+    public boolean checkPasswordMatch(String s1,String s2,EditText ed){
+        if(s1.equals(s2)&&!s1.equals("")){
+            b.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+            ed.setCompoundDrawablesWithIntrinsicBounds(R.drawable.domain, 0, R.drawable.ic_check_black_24dp, 0);
+            return true;
+        }
+        else{
+            ed.setCompoundDrawablesWithIntrinsicBounds(R.drawable.domain, 0, 0, 0);
+            return false;
         }
     }
 }

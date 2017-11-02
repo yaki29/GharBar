@@ -296,7 +296,7 @@ public class ProprietorActivity extends AppCompatActivity {
                         editor.putString("image","");
                         editor.putString("shopname","");
                         editor.apply();
-                        startActivity(new Intent(ProprietorActivity.this, OptionActivity.class));
+                        startActivity(new Intent(ProprietorActivity.this, LoginActivity.class));
 
                         drawer.closeDrawers();
                         finish();
