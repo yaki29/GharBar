@@ -1,0 +1,292 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.gharbar.Fragments.AddPlacesFragment">
+<ScrollView
+    android:background="@drawable/landscape"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:imeOptions="flagNoExtractUi"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:id="@+id/placeName"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/ic_place_black_24dp"
+            android:background="@drawable/edittextplain"
+            />
+        <EditText
+            android:imeOptions="flagNoExtractUi"
+            android:id="@+id/addLine1"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:drawablePadding="10dp"
+            android:hint="Address"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/domain"
+            android:background="@drawable/edittextplain"
+            />
+
+
+        <EditText
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:hint="City"
+            android:inputType="textPersonName"
+            android:id="@+id/city"
+            android:imeOptions="flagNoExtractUi"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/domain"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edittextplain"
+            />
+        <EditText
+            android:id="@+id/state"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:drawablePadding="10dp"
+            android:hint="State"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/domain"
+            android:paddingLeft="10dp"
+            android:imeOptions="flagNoExtractUi"
+            android:background="@drawable/edittextplain"
+            />
+        <EditText
+            android:id="@+id/bhk"
+            android:inputType="number"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:drawablePadding="10dp"
+            android:hint="BHK"
+            android:imeOptions="flagNoExtractUi"
+            android:paddingLeft="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/ic_dashboard_black_24dp"
+            android:background="@drawable/edittextplain"
+            />
+        <EditText
+            android:imeOptions="flagNoExtractUi"
+            android:id="@+id/startingprice"
+            android:inputType="number"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:drawablePadding="10dp"
+            android:hint="Starting Price"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/domain"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edittextplain"
+            />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/amenities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif-condensed"
+        android:paddingLeft="20dp"
+        android:text="Amenities:"
+
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp">
+
+
+
+            <CheckBox
+                android:id="@+id/swimmingpool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="10dp"
+                android:text="Swimming pool"
+                android:buttonTint="#FFFFFF"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+            <CheckBox
+                android:id="@+id/garden"
+                android:layout_toRightOf="@id/swimmingpool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+
+                android:buttonTint="#FFFFFF"
+                android:textSize="15sp"
+                android:padding="10dp"
+                android:text="Garden"
+                android:textColor="#FFFFFF"/>
+
+            <CheckBox
+                android:id="@+id/gym"
+                android:layout_toRightOf="@id/garden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:buttonTint="#FFFFFF"
+                android:text="Gym"
+                android:textColor="#FFFFFF"/>
+            <CheckBox
+                android:id="@+id/lift"
+                android:layout_below="@id/swimmingpool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="15sp"
+                android:buttonTint="#FFFFFF"
+
+                android:padding="10dp"
+                android:text="Lift"
+                android:textColor="#FFFFFF"/>
+            <CheckBox
+                android:id="@+id/cafeteria"
+                android:layout_toRightOf="@id/lift"
+                android:layout_below="@id/garden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="10dp"
+                android:buttonTint="#FFFFFF"
+                android:textSize="15sp"
+
+                android:text="Cafeteria"
+                android:textColor="#FFFFFF"/>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="sans-serif-condensed"
+                android:paddingLeft="20dp"
+                android:text="Type:"
+                android:id="@+id/type"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <RadioGroup
+                android:layout_below="@+id/type"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rd"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/apartment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:padding="10dp"
+                    android:buttonTint="#FFFFFF"
+                    android:text="Apartment"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp" />
+                <CheckBox
+                    android:id="@+id/house"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="10dp"
+                    android:buttonTint="#FFFFFF"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:padding="10dp"
+                    android:text="House"
+                    android:textColor="#FFFFFF"/>
+
+
+
+            </RadioGroup>
+
+           <Button
+                android:id="@+id/btnpic"
+                android:layout_width="170dp"
+               android:layout_below="@id/rd"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Upload Photo" />
+
+            <Button
+                android:id="@+id/btndoc"
+                android:layout_toRightOf="@id/btnpic"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/rd"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Upload ownership Document" />
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/submitbutton"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/btnback"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_margin="10dp"
+            android:onClick="Submit"
+            android:text="Submit" />
+
+    </LinearLayout>
+
+</ScrollView>
+</FrameLayout>

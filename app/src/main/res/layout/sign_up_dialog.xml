@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+   <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Sign Up"
+        android:textColor="#616161"
+
+        android:textSize="20sp"
+        android:textStyle="bold" />-->
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/Name"
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittextrounded"
+        android:fontFamily="sans-serif-condensed"
+        android:inputType="textPersonName"
+        android:hint="  Name"
+        android:padding="3dp" />
+    <EditText
+        android:id="@+id/Email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittextrounded"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="  Email"
+        android:padding="3dp" />
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:background="@drawable/edittextrounded"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="  Password"
+        android:padding="3dp" />
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:background="@drawable/edittextrounded"
+        android:drawableRight="@drawable/ic_check_black_24dp"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="  Confirm Password"
+        android:padding="3dp"
+        android:visibility="visible" />
+    <!--<Button
+        android:id="@+id/loginbtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btnback"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Done"
+        android:onClick="Signup"
+        android:layout_gravity="center_horizontal"
+        android:textAllCaps="false"
+        android:textColor="#616161"
+        android:textStyle="bold" />-->
+
+</LinearLayout>
+    </ScrollView>
